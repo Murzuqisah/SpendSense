@@ -13,8 +13,19 @@
         <!-- Header -->
         <header class="header">
             <div class="header-content">
-                <h1 class="logo">💰 SpendSense</h1>
-                <p class="tagline">Make Smarter Purchase Decisions</p>
+                <div class="header-main">
+                    <h1 class="logo">💰 SpendSense</h1>
+                    <p class="tagline">Make Smarter Purchase Decisions</p>
+                </div>
+                <div class="header-auth">
+                    {% if session.user %}
+                    <span class="user-info">Welcome, {{ session.user }}</span>
+                    <a href="{{ url_for('logout') }}" class="btn-logout">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('login') }}" class="btn-login">Login</a>
+                    <a href="{{ url_for('register') }}" class="btn-register">Register</a>
+                    {% endif %}
+                </div>
             </div>
         </header>
 

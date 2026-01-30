@@ -4,9 +4,12 @@ Flask-based web interface for the SpendSense decision engine
 """
 
 import os
+import re
 from datetime import datetime
 from pathlib import Path
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from functools import wraps
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from werkzeug.security import generate_password_hash, check_password_hash
 from src.decision_engine import DecisionEngine
 from src.validation import InputValidator, ValidationError
 
@@ -18,6 +21,9 @@ STATIC_DIR = PROJECT_ROOT / "static"
 # Initialize Flask app with absolute paths
 app = Flask(__name__, template_folder=str(TEMPLATES_DIR), static_folder=str(STATIC_DIR))
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-key-change-in-production")
+
+# Simple in-memory user storage (in production, use a database)
+users = {}
 
 # Initialize decision engine
 # Use AI only if API key is available, otherwise fall back to rule-based engine
@@ -31,13 +37,104 @@ if not use_ai:
     )
 
 
+def login_required(f):
+    """Decorator to require login for a route"""
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if "user" not in session:
+            return redirect(url_for("login", next=request.url))
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
+def validate_username(name):
+    """Validate username format"""
+    if not name or len(name) < 3 or len(name) > 20:
+        return False
+    return bool(re.match(r"^[a-zA-Z0-9_]+$", name))
+
+
+def validate_password(password):
+    """Validate password format"""
+    return password and len(password) >= 6
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """Login route"""
+    if request.method == "POST":
+        name = request.form.get("name", "").strip()
+        password = request.form.get("password", "")
+
+        if not name or not password:
+            return render_template(
+                "login.html", error="Please provide both username and password"
+            )
+
+        if name not in users:
+            return render_template("login.html", error="Invalid username or password")
+
+        if not check_password_hash(users[name], password):
+            return render_template("login.html", error="Invalid username or password")
+
+        session["user"] = name
+        return redirect(url_for("index"))
+
+    return render_template("login.html")
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    """Register route"""
+    if request.method == "POST":
+        name = request.form.get("name", "").strip()
+        password = request.form.get("password", "")
+        confirm_password = request.form.get("confirm_password", "")
+
+        # Validation
+        if not validate_username(name):
+            return render_template(
+                "register.html",
+                error="Username must be 3-20 characters, letters and numbers only",
+            )
+
+        if name in users:
+            return render_template("register.html", error="Username already exists")
+
+        if not validate_password(password):
+            return render_template(
+                "register.html", error="Password must be at least 6 characters"
+            )
+
+        if password != confirm_password:
+            return render_template("register.html", error="Passwords do not match")
+
+        # Create account
+        users[name] = generate_password_hash(password)
+        session["user"] = name
+        return redirect(url_for("index"))
+
+    return render_template("register.html")
+
+
+@app.route("/logout")
+def logout():
+    """Logout route"""
+    session.pop("user", None)
+    return redirect(url_for("login"))
+
+
 @app.route("/")
+@login_required
 def index():
     """Display the main evaluation form"""
     return render_template("index.html")
 
 
 @app.route("/evaluate", methods=["POST"])
+@login_required
 def evaluate():
     """
     Process the evaluation form and return decision results
