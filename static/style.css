@@ -409,6 +409,25 @@ small {
     margin: 1rem 0;
 }
 
+.item-entry {
+    background: var(--light-bg);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--olive-leaf);
+}
+
+.btn-remove {
+    background-color: var(--copperwood);
+    color: var(--cornsilk);
+    padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
+}
+
+.btn-remove:hover {
+    background-color: var(--danger-color);
+}
+
 /* ============================================
    Buttons
    ============================================ */

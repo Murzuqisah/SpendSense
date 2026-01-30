@@ -30,17 +30,20 @@
 
         <div class="divider"></div>
 
-        <div class="form-group">
-            <label for="item_name">What do you want to buy?</label>
-            <input type="text" id="item_name" name="item_name"
-                placeholder="e.g., Laptop, Gaming Console, Office Chair" maxlength="200" required>
+        <div id="items-container">
+            <div class="item-entry" data-index="0">
+                <div class="form-group">
+                    <label for="item_name_0">Item Name</label>
+                    <input type="text" id="item_name_0" name="items[0][name]" placeholder="e.g., Laptop" maxlength="200" required>
+                </div>
+                <div class="form-group">
+                    <label for="item_cost_0">Cost (KSH)</label>
+                    <input type="number" id="item_cost_0" name="items[0][cost]" placeholder="1200" step="0.01" min="0" required>
+                </div>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="item_cost">Purchase Cost (KSH)</label>
-            <input type="number" id="item_cost" name="item_cost" placeholder="1200" step="0.01" min="0" required>
-            <small>How much does the item cost?</small>
-        </div>
+        <button type="button" class="btn btn-secondary" id="addItemBtn">Add Another Item</button>
 
         <button type="submit" class="btn btn-primary" id="submitBtn">
             <span class="btn-text">Analyze Purchase</span>
@@ -55,6 +58,28 @@ const form = document.querySelector('.evaluation-form');
 const submitBtn = document.getElementById('submitBtn');
 const btnText = submitBtn.querySelector('.btn-text');
 const btnLoader = submitBtn.querySelector('.btn-loader');
+const itemsContainer = document.getElementById('items-container');
+const addItemBtn = document.getElementById('addItemBtn');
+let itemIndex = 1;
+
+addItemBtn.addEventListener('click', function() {
+    const itemEntry = document.createElement('div');
+    itemEntry.className = 'item-entry';
+    itemEntry.dataset.index = itemIndex;
+    itemEntry.innerHTML = `
+        <div class="form-group">
+            <label for="item_name_${itemIndex}">Item Name</label>
+            <input type="text" id="item_name_${itemIndex}" name="items[${itemIndex}][name]" placeholder="e.g., Phone" maxlength="200" required>
+        </div>
+        <div class="form-group">
+            <label for="item_cost_${itemIndex}">Cost (KSH)</label>
+            <input type="number" id="item_cost_${itemIndex}" name="items[${itemIndex}][cost]" placeholder="500" step="0.01" min="0" required>
+        </div>
+        <button type="button" class="btn btn-secondary btn-remove" onclick="this.parentElement.remove()">Remove</button>
+    `;
+    itemsContainer.appendChild(itemEntry);
+    itemIndex++;
+});
 
 form.addEventListener('submit', function(e) {
     btnText.style.display = 'none';
