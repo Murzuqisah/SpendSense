@@ -139,6 +139,12 @@ pytest tests/ -v
 
 # Run specific test
 pytest tests/test_decision_engine.py -v
+
+
+# Run Dockerfile
+
+docker build -t spendsense .
+docker run -p 5000:5000 --env-file .env spendsense
 ```
 
 ## Project Structure
