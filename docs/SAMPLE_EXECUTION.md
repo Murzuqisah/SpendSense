@@ -15,7 +15,7 @@ $ python -m src.cli --quick \
 
 ### Output
 
-```
+```txt
 ============================================================
 DECISION SUMMARY
 ============================================================
@@ -73,7 +73,7 @@ python -m src.cli
 
 ### User Interaction
 
-```
+```txt
 ╔════════════════════════════════════╗
 ║          SPENDSENSE AGENT          ║
 ║   Personal Budgeting Decision Tool │
