@@ -16,3 +16,5 @@ docs/
 tests/
 .DS_Store
 *.log
+
+PULL_REQUEST.md
