@@ -84,4 +84,3 @@ dist/
 *.egg-info/
 
 SpendSense/docs/*
-start.sh

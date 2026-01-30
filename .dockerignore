@@ -11,9 +11,6 @@ __pycache__
 htmlcov
 .git
 .gitignore
-*.md
-docs/
-tests/
 .DS_Store
 *.log
 
