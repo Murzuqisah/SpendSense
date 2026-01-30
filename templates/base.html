@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SpendSense - Financial Decision Support{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">💰 SpendSense</h1>
+                <p class="tagline">Make Smarter Purchase Decisions</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>SpendSense - Personal Budgeting Decision Support | Not a Financial Advisor</p>
+            <p class="disclaimer">⚠️ This is not financial advice. SpendSense provides decision support only.</p>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}SpendSense - Evaluate Your Purchase{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h2>Evaluate Your Purchase Decision</h2>
+    <p>Enter your financial information below to get a personalized analysis</p>
+</section>
+
+<section class="form-section">
+    <form method="POST" action="/evaluate" class="evaluation-form">
+        <div class="form-group">
+            <label for="monthly_income">Monthly Income ($)</label>
+            <input type="number" id="monthly_income" name="monthly_income" placeholder="5000" step="0.01" required>
+            <small>Your gross monthly income</small>
+        </div>
+
+        <div class="form-group">
+            <label for="fixed_expenses">Fixed Monthly Expenses ($)</label>
+            <input type="number" id="fixed_expenses" name="fixed_expenses" placeholder="1500" step="0.01" required>
+            <small>Rent, utilities, insurance, etc.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="savings_goal">Monthly Savings Goal ($)</label>
+            <input type="number" id="savings_goal" name="savings_goal" placeholder="500" step="0.01" required>
+            <small>Amount you want to save each month</small>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="form-group">
+            <label for="purchase_item">What do you want to buy?</label>
+            <input type="text" id="purchase_item" name="purchase_item"
+                placeholder="e.g., Laptop, Gaming Console, Office Chair" maxlength="200" required>
+        </div>
+
+        <div class="form-group">
+            <label for="purchase_cost">Purchase Cost ($)</label>
+            <input type="number" id="purchase_cost" name="purchase_cost" placeholder="1200" step="0.01" required>
+            <small>How much does the item cost?</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Analyze Purchase</button>
+        <button type="reset" class="btn btn-secondary">Clear Form</button>
+    </form>
+</section>
+
+<section class="info-section">
+    <div class="info-card">
+        <h3>💡 How It Works</h3>
+        <ul>
+            <li>Enter your financial information</li>
+            <li>We calculate your disposable income</li>
+            <li>Risk is assessed based on your situation</li>
+            <li>Get personalized insights</li>
+            <li>Explore alternative options</li>
+        </ul>
+    </div>
+
+    <div class="info-card">
+        <h3>📊 Risk Levels</h3>
+        <div class="risk-legend">
+            <div class="risk-item">
+                <span class="badge low">LOW</span>
+                <span>≤30% of disposable income</span>
+            </div>
+            <div class="risk-item">
+                <span class="badge medium">MEDIUM</span>
+                <span>30-60% of disposable income</span>
+            </div>
+            <div class="risk-item">
+                <span class="badge high">HIGH</span>
+                <span>>60% of disposable income</span>
+            </div>
+            <div class="risk-item">
+                <span class="badge hard-stop">STOP</span>
+                <span>Cannot afford this purchase</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-card">
+        <h3>🎯 Example</h3>
+        <p><strong>Scenario:</strong> Monthly income $5000, expenses $1500, savings goal $500</p>
+        <p><strong>Disposable:</strong> $3000</p>
+        <p><strong>Purchase:</strong> $1200 laptop</p>
+        <p><strong>Result:</strong> LOW RISK (40% of disposable)</p>
+    </div>
+</section>
+{% endblock %}

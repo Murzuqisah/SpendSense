@@ -1,17 +1,12 @@
 # SpendSense Git Repository Setup - Commit Summary
 
-## Repository Configuration
-
-**Remote URL**: `git@github.com:Murzuqisah/SpendSense.git`
-**Branch**: `master`
-**Initialization Date**: January 30, 2026
-
 ## Commit History (Chronological)
 
 All commits follow conventional commit format with detailed commit messages.
 
 ### 1. Project Foundation
-```
+
+```bash
 Commit: a1a246b
 Type: chore
 Message: Initialize project configuration and gitignore
@@ -23,7 +18,8 @@ Changes:
 ```
 
 ### 2. Input Validation Feature
-```
+
+```bash
 Commit: c217d1b
 Type: feat
 Message: Implement input validation layer
@@ -37,7 +33,8 @@ Changes:
 ```
 
 ### 3. Rule Engine Feature
-```
+
+```bash
 Commit: c756143
 Type: feat
 Message: Implement deterministic rule engine
@@ -52,7 +49,8 @@ Changes:
 ```
 
 ### 4. Confidence Scoring Feature
-```
+
+```bash
 Commit: f8b5345
 Type: feat
 Message: Implement confidence and risk scoring
@@ -67,7 +65,8 @@ Changes:
 ```
 
 ### 5. AI Reasoning Integration
-```
+
+```bash
 Commit: eb72974
 Type: feat
 Message: Integrate Claude AI for reasoning and explanations
@@ -84,7 +83,8 @@ Changes:
 ```
 
 ### 6. Decision Engine Orchestration
-```
+
+```bash
 Commit: 5d70271
 Type: feat
 Message: Implement decision engine orchestration
@@ -102,7 +102,8 @@ Changes:
 ```
 
 ### 7. Command-Line Interface
-```
+
+```bash
 Commit: 2f72a95
 Type: feat
 Message: Build command-line interface
@@ -122,7 +123,8 @@ Changes:
 ```
 
 ### 8. Documentation - Main README
-```
+
+```bash
 Commit: 4c45840
 Type: docs
 Message: Add comprehensive README with architecture and SDG alignment
@@ -140,7 +142,8 @@ Changes:
 ```
 
 ### 9. Dependencies and Package Structure
-```
+
+```bash
 Commit: 336727c
 Type: chore
 Message: Add project dependencies and package structure
@@ -216,7 +219,6 @@ Each feature commit includes corresponding test implementation:
 To clone and use this repository:
 
 ```bash
-git clone git@github.com:Murzuqisah/SpendSense.git
 cd SpendSense
 python3 -m venv .venv
 source .venv/bin/activate
@@ -224,20 +226,3 @@ pip install -r requirements.txt
 python -m pytest tests/ -v  # Verify all tests pass
 python -m src.cli --help    # See CLI options
 ```
-
-## Push to Remote
-
-To push to GitHub:
-
-```bash
-git push -u origin master
-```
-
-Note: Ensure SSH key is configured for GitHub authentication (git@github.com)
-
----
-
-**Repository Status**: Ready for collaboration and deployment
-**Documentation**: Comprehensive and up-to-date
-**Test Coverage**: 100% (178 tests passing)
-**Code Quality**: Production-ready

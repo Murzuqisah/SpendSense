@@ -12,3 +12,17 @@ pytest-asyncio==0.23.2
 httpx==0.26.0
 python-dateutil==2.8.2
 pytz==2023.3.post1
+
+
+# Core web framework
+Flask==3.0.0
+Werkzeug==3.0.1
+
+# Templating (included with Flask but listed for clarity)
+Jinja2==3.1.2
+
+# WSGI utilities
+python-dotenv==1.0.0
+
+# For production deployment (optional)
+gunicorn==21.2.0
