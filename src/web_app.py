@@ -150,14 +150,18 @@ def evaluate():
             "risk_level": risk_assessment.get("risk_level", "UNKNOWN"),
             "confidence": risk_assessment.get("confidence_score", 0),
             "confidence_score": risk_assessment.get("confidence_score", 0),
-            "percentage_of_disposable": risk_assessment.get('percentage_of_disposable', 0),
+            "percentage_of_disposable": risk_assessment.get(
+                "percentage_of_disposable", 0
+            ),
             # Financial info
             "timestamp": result.get("timestamp", ""),
             "monthly_income": monthly_income,
             "fixed_expenses": fixed_expenses,
             "savings_goal": savings_goal,
-            "disposable_income": financial_analysis.get('disposable_income', 0),
-            "remaining_after_purchase": financial_analysis.get('remaining_after_purchase', 0),
+            "disposable_income": financial_analysis.get("disposable_income", 0),
+            "remaining_after_purchase": financial_analysis.get(
+                "remaining_after_purchase", 0
+            ),
             # Hard stop info
             "hard_stop_triggered": financial_analysis.get("hard_stop_triggered", False),
             "hard_stop_reason": financial_analysis.get("hard_stop_reason"),

@@ -522,7 +522,7 @@ small {
 }
 
 .alternatives-list li:before {
-    content: "💡 ";
+    content: "* ";
 }
 
 .steps-list {

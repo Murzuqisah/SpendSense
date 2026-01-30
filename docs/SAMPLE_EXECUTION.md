@@ -20,7 +20,7 @@ $ python -m src.cli --quick \
 DECISION SUMMARY
 ============================================================
 
-✅ LOW RISK - This purchase is a small portion of your available funds.
+[PASS] LOW RISK - This purchase is a small portion of your available funds.
 
 ------------------------------------------------------------
 RISK ASSESSMENT
@@ -98,7 +98,7 @@ Purchase Cost ($): 450
 DECISION SUMMARY
 ============================================================
 
-✅ MEDIUM RISK - This is a significant purchase, but manageable.
+[PASS] MEDIUM RISK - This is a significant purchase, but manageable.
 
 ------------------------------------------------------------
 RISK ASSESSMENT
@@ -240,7 +240,7 @@ $ python -m src.cli --quick \
 DECISION SUMMARY
 ============================================================
 
-❌ HARD STOP - Cannot afford this purchase at this time.
+[STOP] HARD STOP - Cannot afford this purchase at this time.
 
 ------------------------------------------------------------
 RISK ASSESSMENT
@@ -257,7 +257,7 @@ Fixed Expenses: $2800.00
 Savings Goal: $500.00
 Disposable Income: -$300.00
 
-⚠️ Hard Stop: INSUFFICIENT_DISPOSABLE_INCOME
+[ALERT] Hard Stop: INSUFFICIENT_DISPOSABLE_INCOME
 
 Your disposable income is negative (-$300), which means you're already
 spending more than your monthly income after accounting for expenses and
@@ -339,7 +339,7 @@ $ python -m src.cli --quick \
 ### Output
 
 ```
-❌ Error: Validation failed - monthly_income must be positive
+[STOP] Error: Validation failed - monthly_income must be positive
 ```
 
 ### What Happened

@@ -5,13 +5,13 @@
 {% block content %}
 <section class="error-section">
     <div class="error-card">
-        <div class="error-icon">❌</div>
+        <div class="error-icon">[STOP]</div>
         <h2>{{ error_title }}</h2>
         <p class="error-message">{{ error_message }}</p>
 
         {% if suggestions %}
         <div class="suggestions">
-            <h4>💡 Suggestions:</h4>
+            <h4>Suggestions:</h4>
             <ul>
                 {% for suggestion in suggestions %}
                 <li>{{ suggestion }}</li>

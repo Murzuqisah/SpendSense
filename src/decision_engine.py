@@ -195,13 +195,13 @@ class DecisionEngine:
 
         # Determine recommendation (remember: NOT financial advice)
         if hard_stop:
-            summary = "⚠️ CANNOT AFFORD - This purchase would exceed your income or eliminate all disposable funds."
+            summary = "[ALERT] CANNOT AFFORD - This purchase would exceed your income or eliminate all disposable funds."
         elif risk == "Low Risk":
-            summary = "✅ LOW RISK - This purchase is a small portion of your available funds."
+            summary = "[PASS] LOW RISK - This purchase is a small portion of your available funds."
         elif risk == "Medium Risk":
-            summary = "⚠️ MEDIUM RISK - This purchase is a significant portion of your available funds. Consider carefully."
+            summary = "[WARN] MEDIUM RISK - This purchase is a significant portion of your available funds. Consider carefully."
         else:  # High Risk
-            summary = "🚨 HIGH RISK - This purchase would consume most or all of your available funds. Proceed with caution."
+            summary = "[ALERT] HIGH RISK - This purchase would consume most or all of your available funds. Proceed with caution."
 
         return {
             "summary": summary,

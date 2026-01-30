@@ -234,7 +234,7 @@ class TestDecisionEngineFallbackMode:
         summary = report["final_decision"]["summary"]
 
         assert "LOW RISK" in summary
-        assert "✅" in summary
+        assert "[PASS]" in summary
 
     def test_fallback_medium_risk_summary(self):
         """Test fallback summary for medium risk."""
@@ -251,7 +251,7 @@ class TestDecisionEngineFallbackMode:
         summary = report["final_decision"]["summary"]
 
         assert "MEDIUM RISK" in summary
-        assert "⚠️" in summary
+        assert "[WARN]" in summary
 
     def test_fallback_high_risk_summary(self):
         """Test fallback summary for high risk."""
@@ -268,7 +268,7 @@ class TestDecisionEngineFallbackMode:
         summary = report["final_decision"]["summary"]
 
         assert "HIGH RISK" in summary
-        assert "🚨" in summary
+        assert "[ALERT]" in summary
 
     def test_fallback_hard_stop_summary(self):
         """Test fallback summary when hard stop triggered."""

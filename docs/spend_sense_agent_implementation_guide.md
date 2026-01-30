@@ -16,10 +16,10 @@ Many individuals struggle with everyday financial decisions such as purchases, s
 
 ### What This Agent Is (and Is Not)
 
-- ✅ A decision‑support agent
-- ✅ Scenario and risk analysis tool
-- ❌ Not a financial advisor
-- ❌ No investment, tax, or credit advice
+- [INCLUDED] A decision-support agent
+- [INCLUDED] Scenario and risk analysis tool
+- [EXCLUDED] Not a financial advisor
+- [EXCLUDED] No investment, tax, or credit advice
 
 ---
 

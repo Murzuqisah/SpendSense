@@ -47,7 +47,7 @@ def interactive_mode():
                 purchase_cost = float(input("Purchase Cost ($): "))
 
             except ValueError:
-                print("❌ Invalid input. Please enter numbers for amounts.\n")
+                print("[STOP] Invalid input. Please enter numbers for amounts.\n")
                 continue
             except KeyboardInterrupt:
                 print("\n\nThank you for using SpendSense!")
@@ -62,14 +62,14 @@ def interactive_mode():
             }
 
             # Evaluate
-            print("\n⏳ Analyzing your purchase...\n")
+            print("\n[PROCESSING] Analyzing your purchase...\n")
             report = engine.evaluate(input_data)
 
             # Display results
             if report["status"] == "success":
                 display_report(report)
             else:
-                print(f"❌ Error: {report['error']}\n")
+                print(f"[STOP] Error: {report['error']}\n")
 
             # Ask if user wants to continue
             print("\n" + "=" * 60)
@@ -118,7 +118,7 @@ def display_report(report: dict):
         print(f"Remaining After Purchase: ${metrics['remaining_after_purchase']:.2f}")
 
     if finance.get("hard_stop_triggered"):
-        print(f"\n⚠️ Hard Stop: {finance['hard_stop_reason']}")
+        print(f"\n[ALERT] Hard Stop: {finance['hard_stop_reason']}")
 
     # AI Reasoning
     print("\n" + "-" * 60)
@@ -187,7 +187,7 @@ def quick_evaluate(
     if report["status"] == "success":
         display_report(report)
     else:
-        print(f"❌ Error: {report['error']}")
+        print(f"[STOP] Error: {report['error']}")
         sys.exit(1)
 
 

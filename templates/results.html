@@ -15,13 +15,13 @@
         class="decision-card {% if risk_level == 'LOW' %}low-risk{% elif risk_level == 'MEDIUM' %}medium-risk{% elif risk_level == 'HIGH' %}high-risk{% else %}hard-stop{% endif %}">
         <div class="decision-icon">
             {% if risk_level == 'LOW' %}
-            ✅
+            [PASS]
             {% elif risk_level == 'MEDIUM' %}
-            ⚠️
+            [WARN]
             {% elif risk_level == 'HIGH' %}
-            🚨
+            [ALERT]
             {% else %}
-            ⛔
+            [STOP]
             {% endif %}
         </div>
         <h3>{{ decision_summary }}</h3>
@@ -38,7 +38,7 @@
     <!-- Risk Assessment -->
     <div class="grid-2">
         <div class="card">
-            <h3>📊 Risk Assessment</h3>
+            <h3>Risk Assessment</h3>
             <div
                 class="risk-badge {% if risk_level == 'LOW' %}low{% elif risk_level == 'MEDIUM' %}medium{% elif risk_level == 'HIGH' %}high{% else %}hard-stop{% endif %}">
                 {{ risk_level }}
@@ -90,7 +90,7 @@
 
     <!-- AI Insights -->
     <div class="card">
-        <h3>💡 Analysis & Insights</h3>
+        <h3>Analysis & Insights</h3>
         <div class="insight-text">
             {{ ai_explanation }}
         </div>
@@ -107,7 +107,7 @@
 
     <!-- Recommended Next Steps -->
     <div class="card">
-        <h3>🎯 Recommended Next Steps</h3>
+        <h3>Recommended Next Steps</h3>
         <ol class="steps-list">
             {% for step in next_steps %}
             <li>{{ step }}</li>

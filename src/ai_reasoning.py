@@ -150,7 +150,7 @@ Important: Remember NOT to tell them to buy or not buy. Explain the situation an
             explanation_with_disclaimer = f"""{explanation}
 
 ---
-⚠️ DISCLAIMER: This analysis is for informational purposes only and is not financial advice. You should make your own informed decision based on your complete financial situation. Consider consulting with a financial advisor if needed."""
+[DISCLAIMER] This analysis is for informational purposes only and is not financial advice. You should make your own informed decision based on your complete financial situation. Consider consulting with a financial advisor if needed."""
 
             logger.info(f"AI explanation generated for {purchase_item}")
 
