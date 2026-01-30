@@ -27,15 +27,27 @@ IMPORTANT GUARDRAILS:
 - You must NOT provide financial, tax, investment, or credit advice
 - You must NOT recommend buying or not buying - only explain risks and suggest alternatives
 - You must NOT make assumptions about user's future income or circumstances
-- You must ALWAYS include a disclaimer that this is not financial advice
-- Be conservative and cautious in your explanations
 - Focus on risk analysis, not recommendations
 
 Your role is to:
-1. Explain why a purchase is Low/Medium/High risk
-2. Suggest safer alternatives or ways to reduce risk
-3. Provide context and reasoning
-4. Always remind the user to make their own decision
+1. Explain why a purchase is Low/Medium/High risk in 2-3 clear sentences
+2. Provide 2-3 specific, actionable alternatives
+3. Keep responses concise and structured
+
+Format your response as:
+
+RISK ANALYSIS:
+[2-3 sentences explaining the risk level and why]
+
+KEY CONSIDERATIONS:
+- [Point 1]
+- [Point 2]
+- [Point 3]
+
+ALTERNATIVES:
+1. [Specific alternative option]
+2. [Specific alternative option]
+3. [Specific alternative option]
 
 Be clear, concise, and avoid jargon."""
 
@@ -73,24 +85,17 @@ Be clear, concise, and avoid jargon."""
         Returns:
             Formatted prompt for Claude
         """
-        prompt = f"""User Financial Situation:
+        prompt = f"""Analyze this purchase decision:
+
+FINANCIAL SITUATION:
 - Monthly Income: KSH {monthly_income:.2f}
-- Available for Discretionary Spending (Disposable Income): ${disposable_income:.2f}
-- Purchase: {purchase_item}
-- Cost: ${purchase_cost:.2f}
-
-Risk Assessment:
+- Disposable Income: KSH {disposable_income:.2f}
+- Purchase Item: {purchase_item}
+- Purchase Cost: KSH {purchase_cost:.2f}
 - Risk Level: {risk_level}
-- Confidence Score: {confidence_score:.1%}
-- Percentage of Disposable Income: {(purchase_cost/max(disposable_income, 1))*100:.1f}%
+- Percentage of Disposable: {(purchase_cost/max(disposable_income, 1))*100:.1f}%
 
-Task:
-1. Explain why this purchase is classified as {risk_level}
-2. List the key financial risks or benefits
-3. Suggest 2-3 safer alternatives or ways to reduce risk (e.g., waiting, buying used, finding cheaper options)
-4. Provide any additional financial context
-
-Important: Remember NOT to tell them to buy or not buy. Explain the situation and empower them to decide."""
+Provide a structured analysis following the format specified in your instructions."""
 
         return prompt
 
@@ -137,7 +142,8 @@ Important: Remember NOT to tell them to buy or not buy. Explain the situation an
             # Call OpenAI API
             response = self.client.chat.completions.create(
                 model="gpt-4o-mini",
-                max_tokens=1024,
+                max_tokens=800,
+                temperature=0.7,
                 messages=messages
             )
 
@@ -147,16 +153,13 @@ Important: Remember NOT to tell them to buy or not buy. Explain the situation an
             # Store conversation
             self.conversation_history = messages + [{"role": "assistant", "content": explanation}]
 
-            # Add disclaimer
-            explanation_with_disclaimer = f"""{explanation}
-
----
-[DISCLAIMER] This analysis is for informational purposes only and is not financial advice. You should make your own informed decision based on your complete financial situation. Consider consulting with a financial advisor if needed."""
+            # Format the explanation with better structure
+            formatted_explanation = self._format_explanation(explanation)
 
             logger.info(f"AI explanation generated for {purchase_item}")
 
             return {
-                "explanation": explanation_with_disclaimer,
+                "explanation": formatted_explanation,
                 "alternatives": self._extract_alternatives(explanation),
             }
 
@@ -208,89 +211,102 @@ Important: Remember NOT to tell them to buy or not buy. Explain the situation an
         logger.info("Conversation history reset")
 
     @staticmethod
+    def _format_explanation(explanation: str) -> str:
+        """Format the AI explanation with better structure."""
+        # Add disclaimer at the end
+        formatted = f"""{explanation}
+
+---
+DISCLAIMER: This analysis is for informational purposes only and is not financial advice. Make your own informed decision based on your complete financial situation."""
+        return formatted
+
+    @staticmethod
     def _extract_alternatives(explanation: str) -> List[str]:
-        """
-        Extract suggested alternatives from explanation.
-
-        Args:
-            explanation: AI-generated explanation
-
-        Returns:
-            List of alternatives
-        """
-        # Look for numbered or bulleted alternatives
+        """Extract suggested alternatives from explanation."""
         alternatives = []
         lines = explanation.split("\n")
 
-        in_alternatives_section = False
+        in_alternatives = False
         for line in lines:
-            if "alternative" in line.lower() or "instead" in line.lower():
-                in_alternatives_section = True
+            line = line.strip()
+            
+            # Check if we're in the alternatives section
+            if "ALTERNATIVES:" in line.upper() or "ALTERNATIVE" in line.upper():
+                in_alternatives = True
+                continue
+            
+            # Stop if we hit another section
+            if in_alternatives and line.endswith(":") and line.isupper():
+                break
+                
+            # Extract numbered or bulleted items
+            if in_alternatives and line:
+                for prefix in ["1.", "2.", "3.", "4.", "5.", "-", "•", "*"]:
+                    if line.startswith(prefix):
+                        alt = line.lstrip("123456.-•*").strip()
+                        if alt and len(alt) > 10:
+                            alternatives.append(alt)
+                        break
 
-            if in_alternatives_section and line.strip():
-                # Look for numbered items (1., 2., etc.) or bullets
-                if any(
-                    line.strip().startswith(prefix)
-                    for prefix in ["1.", "2.", "3.", "4.", "5.", "-", "•"]
-                ):
-                    alt = line.strip().lstrip("123456.-•").strip()
-                    if alt and len(alt) > 10:  # Only include substantial suggestions
-                        alternatives.append(alt)
-
-        return alternatives[:3]  # Return up to 3 alternatives
+        return alternatives[:5]
 
     @staticmethod
     def _get_fallback_explanation(
         risk_level: str, cost: float, disposable: float
     ) -> str:
-        """
-        Provide fallback explanation if API fails.
-
-        Args:
-            risk_level: Risk level
-            cost: Purchase cost
-            disposable: Disposable income
-
-        Returns:
-            Fallback explanation
-        """
+        """Provide fallback explanation if API fails."""
         percentage = (cost / max(disposable, 1)) * 100
 
         if risk_level == "Low Risk":
-            return f"""This {cost:.2f} purchase represents {percentage:.1f}% of your available disposable income.
+            return f"""RISK ANALYSIS:
+This KSH {cost:.2f} purchase represents {percentage:.1f}% of your disposable income, which falls within a comfortable spending range. The purchase is unlikely to significantly impact your financial flexibility.
 
-Based on the rule-based assessment, this is a Low Risk purchase - it's small relative to your available funds.
-However, this doesn't mean you should buy it automatically. Consider:
-- Do you need this item?
-- Is there a more affordable alternative?
-- Could you wait and save for it?
+KEY CONSIDERATIONS:
+- Purchase amount is manageable within your budget
+- Leaves adequate funds for other expenses
+- Low impact on savings goals
 
-Make the decision that's right for your financial situation."""
+ALTERNATIVES:
+1. Wait for seasonal sales to get a better price
+2. Compare prices across different retailers
+3. Consider if a lower-cost version meets your needs
+
+---
+DISCLAIMER: This analysis is for informational purposes only and is not financial advice. Make your own informed decision based on your complete financial situation."""
 
         elif risk_level == "Medium Risk":
-            return f"""This ${cost:.2f} purchase represents {percentage:.1f}% of your available disposable income.
+            return f"""RISK ANALYSIS:
+This KSH {cost:.2f} purchase represents {percentage:.1f}% of your disposable income, which is a moderate portion of your available funds. This purchase will noticeably reduce your financial flexibility for the month.
 
-Based on the rule-based assessment, this is a Medium Risk purchase - it's a noticeable portion of your available funds.
-Before making this purchase, consider:
-- Is this a need or a want?
-- Have you budgeted for this category?
-- Could you find the item at a lower cost?
-- Would it impact other financial goals?
+KEY CONSIDERATIONS:
+- Significant portion of discretionary spending
+- May limit other purchases this month
+- Could impact emergency fund contributions
 
-Make a careful, informed decision."""
+ALTERNATIVES:
+1. Delay purchase and save over 2-3 months
+2. Look for certified refurbished or gently used options
+3. Consider a payment plan if available with no interest
+
+---
+DISCLAIMER: This analysis is for informational purposes only and is not financial advice. Make your own informed decision based on your complete financial situation."""
 
         else:  # High Risk
-            return f"""This ${cost:.2f} purchase represents {percentage:.1f}% of your available disposable income.
+            return f"""RISK ANALYSIS:
+This KSH {cost:.2f} purchase represents {percentage:.1f}% of your disposable income, which is a very substantial portion of your available funds. This purchase would significantly limit your financial flexibility and could impact your ability to handle unexpected expenses.
 
-Based on the rule-based assessment, this is a High Risk purchase - it's a very significant portion of your available funds.
-This suggests the purchase could materially impact your financial flexibility.
-Consider:
-- Is this a critical need right now?
-- Could you delay this purchase?
-- Can you find a more affordable alternative?
-- What would it mean for your savings and other goals?
+KEY CONSIDERATIONS:
+- Consumes majority of discretionary spending
+- Severely limits financial flexibility
+- High risk to emergency preparedness
 
-Think carefully before committing to this purchase."""
+ALTERNATIVES:
+1. Save for 3-6 months before purchasing
+2. Explore budget-friendly alternatives in lower price range
+3. Consider if this is a need vs. want at this time
+
+---
+DISCLAIMER: This analysis is for informational purposes only and is not financial advice. Make your own informed decision based on your complete financial situation."""
 
     @staticmethod
     def _get_fallback_alternatives(risk_level: str) -> List[str]:

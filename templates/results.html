@@ -90,12 +90,12 @@
 
     <!-- AI Insights -->
     <div class="card">
-        <h3>💡 Analysis & Insights</h3>
-        <div class="insight-text">
-            {{ ai_reasoning }}
+        <h3>Analysis & Insights</h3>
+        <div class="insight-text structured-response">
+            {{ ai_reasoning | safe }}
         </div>
 
-        {% if alternatives %}
+        {% if alternatives and alternatives|length > 0 %}
         <h4>Suggested Alternatives</h4>
         <ul class="alternatives-list">
             {% for alt in alternatives %}
