@@ -143,7 +143,7 @@ pytest tests/test_decision_engine.py -v
 
 ## Project Structure
 
-```
+```txt
 SpendSense/
 ├── src/
 │   ├── ai_reasoning.py      # OpenAI integration with structured outputs
