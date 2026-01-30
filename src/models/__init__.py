@@ -94,7 +94,7 @@ class UserProfile(BaseModel):
     user_id: str
     name: str
     email: str
-    currency: str = "USD"
+    currency: str = "KSH"
     timezone: str = "UTC"
     monthly_income: Optional[float] = None
     created_at: datetime = Field(default_factory=datetime.now)

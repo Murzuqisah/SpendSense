@@ -30,7 +30,7 @@
             <strong>Hard Stop Triggered:</strong> {{ hard_stop_reason }}
             {% else %}
             <strong>Item:</strong> {{ purchase_item }}<br>
-            <strong>Cost:</strong> ${{ "%.2f"|format(purchase_cost) }}
+            <strong>Cost:</strong> KSH {{ "%.2f"|format(purchase_cost) }}
             {% endif %}
         </p>
     </div>
@@ -61,28 +61,28 @@
             <h3>💵 Financial Analysis</h3>
             <div class="financial-item">
                 <span>Monthly Income</span>
-                <span class="amount">${{ "%.2f"|format(monthly_income) }}</span>
+                <span class="amount">KSH {{ "%.2f"|format(monthly_income) }}</span>
             </div>
             <div class="financial-item">
                 <span>Fixed Expenses</span>
-                <span class="amount">${{ "%.2f"|format(fixed_expenses) }}</span>
+                <span class="amount">KSH {{ "%.2f"|format(fixed_expenses) }}</span>
             </div>
             <div class="financial-item">
                 <span>Savings Goal</span>
-                <span class="amount">${{ "%.2f"|format(savings_goal) }}</span>
+                <span class="amount">KSH {{ "%.2f"|format(savings_goal) }}</span>
             </div>
             <div class="divider-thin"></div>
             <div class="financial-item highlight">
                 <span>Disposable Income</span>
                 <span class="amount">
-                    {% if disposable_income < 0 %}<span class="negative">${{ "%.2f"|format(disposable_income)
-                        }}</span>{% else %}<strong>${{ "%.2f"|format(disposable_income) }}</strong>{% endif %}
+                    {% if disposable_income < 0 %}<span class="negative">KSH {{ "%.2f"|format(disposable_income)
+                        }}</span>{% else %}<strong>KSH {{ "%.2f"|format(disposable_income) }}</strong>{% endif %}
                 </span>
             </div>
             {% if not hard_stop_triggered %}
             <div class="financial-item highlight">
                 <span>Remaining After Purchase</span>
-                <span class="amount">${{ "%.2f"|format(remaining_after_purchase) }}</span>
+                <span class="amount">KSH {{ "%.2f"|format(remaining_after_purchase) }}</span>
             </div>
             {% endif %}
         </div>

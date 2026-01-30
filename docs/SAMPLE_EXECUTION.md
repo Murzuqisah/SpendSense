@@ -32,7 +32,7 @@ Percentage of Disposable Income: 40.0%
 ------------------------------------------------------------
 FINANCIAL ANALYSIS
 ------------------------------------------------------------
-Monthly Income: $5000.00
+Monthly Income: KSH 5000.00
 Disposable Income: $3000.00
 Purchase Cost: $1200.00
 Remaining After Purchase: $1800.00
@@ -86,7 +86,7 @@ Press Ctrl+C to exit at any time.
 ------------------------------------------------------------
 PURCHASE EVALUATION
 ------------------------------------------------------------
-Monthly Income ($): 4500
+Monthly Income (KSH): 4500
 Fixed Monthly Expenses ($): 1800
 Monthly Savings Goal ($): 600
 What do you want to buy?: Gaming Console
@@ -110,7 +110,7 @@ Percentage of Disposable Income: 57.1%
 ------------------------------------------------------------
 FINANCIAL ANALYSIS
 ------------------------------------------------------------
-Monthly Income: $4500.00
+Monthly Income: KSH 4500.00
 Disposable Income: $2100.00
 Purchase Cost: $450.00
 Remaining After Purchase: $1650.00
@@ -217,7 +217,7 @@ cat output.json
 
 ### Scenario
 
-- Monthly Income: $3000
+- Monthly Income: KSH 3000
 - Fixed Expenses: $2800
 - Savings Goal: $500
 - Desired Purchase: Gaming PC ($2000)
@@ -252,7 +252,7 @@ Percentage of Disposable Income: Infinity% (exceeds disposable income)
 ------------------------------------------------------------
 FINANCIAL ANALYSIS
 ------------------------------------------------------------
-Monthly Income: $3000.00
+Monthly Income: KSH 3000.00
 Fixed Expenses: $2800.00
 Savings Goal: $500.00
 Disposable Income: -$300.00

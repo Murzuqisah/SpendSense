@@ -40,7 +40,7 @@ def interactive_mode():
 
             # Collect input
             try:
-                monthly_income = float(input("Monthly Income ($): "))
+                monthly_income = float(input("Monthly Income (KSH): "))
                 fixed_expenses = float(input("Fixed Monthly Expenses ($): "))
                 savings_goal = float(input("Monthly Savings Goal ($): "))
                 purchase_item = input("What do you want to buy?: ")
@@ -111,7 +111,7 @@ def display_report(report: dict):
     print("FINANCIAL ANALYSIS")
     print("-" * 60)
     metrics = final["key_metrics"]
-    print(f"Monthly Income: ${metrics['monthly_income']:.2f}")
+    print(f"Monthly Income: KSH {metrics['monthly_income']:.2f}")
     print(f"Disposable Income: ${metrics['disposable_income']:.2f}")
     print(f"Purchase Cost: ${metrics['purchase_cost']:.2f}")
     if metrics["remaining_after_purchase"] is not None:

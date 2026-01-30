@@ -75,7 +75,7 @@ class RuleEngine:
         if purchase_cost >= monthly_income:
             return (
                 True,
-                f"Purchase cost (${purchase_cost:.2f}) exceeds monthly income "
+                f"Purchase cost (KSH {purchase_cost:.2f}) exceeds monthly income "
                 f"(${monthly_income:.2f}). Cannot afford this purchase.",
             )
 

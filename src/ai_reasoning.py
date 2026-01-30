@@ -73,7 +73,7 @@ Be clear, concise, and avoid jargon."""
             Formatted prompt for Claude
         """
         prompt = f"""User Financial Situation:
-- Monthly Income: ${monthly_income:.2f}
+- Monthly Income: KSH {monthly_income:.2f}
 - Available for Discretionary Spending (Disposable Income): ${disposable_income:.2f}
 - Purchase: {purchase_item}
 - Cost: ${purchase_cost:.2f}

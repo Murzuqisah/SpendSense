@@ -175,7 +175,7 @@ gunicorn -w 4 -b 0.0.0.0:5000 src.web_app:app
 
 ### Input Data
 
-- Monthly Income: $5,000
+- Monthly Income: KSH 5,000
 - Fixed Expenses: $3,000
 - Savings Goal: $1,000
 - Item: MacBook Pro

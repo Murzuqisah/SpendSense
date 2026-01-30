@@ -11,19 +11,19 @@
 <section class="form-section">
     <form method="POST" action="/evaluate" class="evaluation-form">
         <div class="form-group">
-            <label for="monthly_income">Monthly Income ($)</label>
+            <label for="monthly_income">Monthly Income (KSH)</label>
             <input type="number" id="monthly_income" name="monthly_income" placeholder="5000" step="0.01" required>
             <small>Your gross monthly income</small>
         </div>
 
         <div class="form-group">
-            <label for="fixed_expenses">Fixed Monthly Expenses ($)</label>
+            <label for="fixed_expenses">Fixed Monthly Expenses (KSH)</label>
             <input type="number" id="fixed_expenses" name="fixed_expenses" placeholder="1500" step="0.01" required>
             <small>Rent, utilities, insurance, etc.</small>
         </div>
 
         <div class="form-group">
-            <label for="savings_goal">Monthly Savings Goal ($)</label>
+            <label for="savings_goal">Monthly Savings Goal (KSH)</label>
             <input type="number" id="savings_goal" name="savings_goal" placeholder="500" step="0.01" required>
             <small>Amount you want to save each month</small>
         </div>
@@ -37,7 +37,7 @@
         </div>
 
         <div class="form-group">
-            <label for="purchase_cost">Purchase Cost ($)</label>
+            <label for="purchase_cost">Purchase Cost (KSH)</label>
             <input type="number" id="purchase_cost" name="purchase_cost" placeholder="1200" step="0.01" required>
             <small>How much does the item cost?</small>
         </div>
@@ -83,9 +83,9 @@
 
     <div class="info-card">
         <h3>Example</h3>
-        <p><strong>Scenario:</strong> Monthly income $5000, expenses $1500, savings goal $500</p>
-        <p><strong>Disposable:</strong> $3000</p>
-        <p><strong>Purchase:</strong> $1200 laptop</p>
+        <p><strong>Scenario:</strong> Monthly income KSH 5000, expenses KSH 1500, savings goal KSH 500</p>
+        <p><strong>Disposable:</strong> KSH 3000</p>
+        <p><strong>Purchase:</strong> KSH 1200 laptop</p>
         <p><strong>Result:</strong> LOW RISK (40% of disposable)</p>
     </div>
 </section>

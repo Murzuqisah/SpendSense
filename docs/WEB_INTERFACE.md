@@ -315,7 +315,7 @@ Options:
 
 **Input**:
 
-- Monthly Income: $5,000
+- Monthly Income: KSH 5,000
 - Monthly Expenses: $2,000
 - Current Savings: $50,000
 - Item: MacBook Pro
@@ -331,7 +331,7 @@ Options:
 
 **Input**:
 
-- Monthly Income: $2,500
+- Monthly Income: KSH 2,500
 - Monthly Expenses: $2,300
 - Current Savings: $500
 - Item: Gaming Console
@@ -347,7 +347,7 @@ Options:
 
 **Input**:
 
-- Monthly Income: $3,000
+- Monthly Income: KSH 3,000
 - Monthly Expenses: $3,000
 - Current Savings: $100
 - Item: Tesla Model 3
