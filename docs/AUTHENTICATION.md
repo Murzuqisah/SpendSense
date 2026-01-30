@@ -7,6 +7,7 @@ SpendSense now includes a simple but effective authentication system that requir
 ## Features
 
 ### User Registration
+
 - Users can create a new account with a username and password
 - Username validation: 3-20 characters, letters and numbers only
 - Password validation: Minimum 6 characters
@@ -14,17 +15,20 @@ SpendSense now includes a simple but effective authentication system that requir
 - Automatic login after successful registration
 
 ### User Login
+
 - Existing users can log in with their credentials
 - Session-based authentication
 - Passwords are securely hashed using werkzeug security
 - Invalid username/password combination shows clear error message
 
 ### User Logout
+
 - Users can log out from any page via the logout button
 - Session is cleared upon logout
 - Redirects to login page after logout
 
 ### Protected Routes
+
 - Main evaluation page (`/`) requires authentication
 - Evaluation endpoint (`/evaluate`) requires authentication
 - Unauthenticated users are redirected to login page
@@ -32,15 +36,18 @@ SpendSense now includes a simple but effective authentication system that requir
 ## User Interface
 
 ### Header
+
 - Shows "Welcome, [username]" and logout button when authenticated
 - Shows Login and Register links when not authenticated
 
 ### Login Page
+
 - Clean form with username and password fields
 - Link to registration page for new users
 - Error messages for invalid credentials
 
 ### Register Page
+
 - Form with username, password, and confirm password fields
 - Helper text with password requirements
 - Link to login page for existing users
@@ -96,6 +103,7 @@ The authentication system has 22 comprehensive tests covering:
 - Logout functionality
 
 Run tests with:
+
 ```bash
 python -m pytest tests/test_authentication.py -v
 ```

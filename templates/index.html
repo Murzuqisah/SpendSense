@@ -12,39 +12,68 @@
     <form method="POST" action="/evaluate" class="evaluation-form">
         <div class="form-group">
             <label for="monthly_income">Monthly Income (KSH)</label>
-            <input type="number" id="monthly_income" name="monthly_income" placeholder="5000" step="0.01" required>
+            <input type="number" id="monthly_income" name="monthly_income" placeholder="5000" step="0.01" min="0" required>
             <small>Your gross monthly income</small>
         </div>
 
         <div class="form-group">
             <label for="fixed_expenses">Fixed Monthly Expenses (KSH)</label>
-            <input type="number" id="fixed_expenses" name="fixed_expenses" placeholder="1500" step="0.01" required>
+            <input type="number" id="fixed_expenses" name="fixed_expenses" placeholder="1500" step="0.01" min="0" required>
             <small>Rent, utilities, insurance, etc.</small>
         </div>
 
         <div class="form-group">
             <label for="savings_goal">Monthly Savings Goal (KSH)</label>
-            <input type="number" id="savings_goal" name="savings_goal" placeholder="500" step="0.01" required>
+            <input type="number" id="savings_goal" name="savings_goal" placeholder="500" step="0.01" min="0" required>
             <small>Amount you want to save each month</small>
         </div>
 
         <div class="divider"></div>
 
         <div class="form-group">
-            <label for="purchase_item">What do you want to buy?</label>
-            <input type="text" id="purchase_item" name="purchase_item"
+            <label for="item_name">What do you want to buy?</label>
+            <input type="text" id="item_name" name="item_name"
                 placeholder="e.g., Laptop, Gaming Console, Office Chair" maxlength="200" required>
         </div>
 
         <div class="form-group">
-            <label for="purchase_cost">Purchase Cost (KSH)</label>
-            <input type="number" id="purchase_cost" name="purchase_cost" placeholder="1200" step="0.01" required>
+            <label for="item_cost">Purchase Cost (KSH)</label>
+            <input type="number" id="item_cost" name="item_cost" placeholder="1200" step="0.01" min="0" required>
             <small>How much does the item cost?</small>
         </div>
 
-        <button type="submit" class="btn btn-primary">Analyze Purchase</button>
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+            <span class="btn-text">Analyze Purchase</span>
+            <span class="btn-loader" style="display:none;">⏳ Analyzing...</span>
+        </button>
         <button type="reset" class="btn btn-secondary">Clear Form</button>
     </form>
+</section>
+
+<script>
+const form = document.querySelector('.evaluation-form');
+const submitBtn = document.getElementById('submitBtn');
+const btnText = submitBtn.querySelector('.btn-text');
+const btnLoader = submitBtn.querySelector('.btn-loader');
+
+form.addEventListener('submit', function(e) {
+    btnText.style.display = 'none';
+    btnLoader.style.display = 'inline';
+    submitBtn.disabled = true;
+});
+
+// Real-time validation feedback
+const inputs = form.querySelectorAll('input[type="number"]');
+inputs.forEach(input => {
+    input.addEventListener('input', function() {
+        if (this.value < 0) {
+            this.setCustomValidity('Value must be positive');
+        } else {
+            this.setCustomValidity('');
+        }
+    });
+});
+</script>
 </section>
 
 <section class="info-section">

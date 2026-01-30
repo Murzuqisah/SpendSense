@@ -14,8 +14,9 @@
         <header class="header">
             <div class="header-content">
                 <div class="header-main">
-                    <h1 class="logo">💰 SpendSense</h1>
-                    <p class="tagline">Make Smarter Purchase Decisions</p>
+                    <a href="{{ url_for('landing') if not session.user else url_for('dashboard') }}">
+                        <h1 class="logo">SpendSense</h1>
+                    </a>
                 </div>
                 <div class="header-auth">
                     {% if session.user %}

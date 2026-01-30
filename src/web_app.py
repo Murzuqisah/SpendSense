@@ -27,13 +27,13 @@ users = {}
 
 # Initialize decision engine
 # Use AI only if API key is available, otherwise fall back to rule-based engine
-use_ai = bool(os.environ.get("ANTHROPIC_API_KEY"))
+use_ai = bool(os.environ.get("OPENAI_API_KEY"))
 engine = DecisionEngine(use_ai=use_ai)
 validator = InputValidator()
 
 if not use_ai:
     print(
-        "Warning: ANTHROPIC_API_KEY not set. Running in fallback mode (rule-based decisions only)"
+        "Warning: OPENAI_API_KEY not set. Running in fallback mode (rule-based decisions only)"
     )
 
 
@@ -43,7 +43,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if "user" not in session:
-            return redirect(url_for("login", next=request.url))
+            return redirect(url_for("landing"))
         return f(*args, **kwargs)
 
     return decorated_function
@@ -80,7 +80,7 @@ def login():
             return render_template("login.html", error="Invalid username or password")
 
         session["user"] = name
-        return redirect(url_for("index"))
+        return redirect(url_for("dashboard"))
 
     return render_template("login.html")
 
@@ -114,7 +114,7 @@ def register():
         # Create account
         users[name] = generate_password_hash(password)
         session["user"] = name
-        return redirect(url_for("index"))
+        return redirect(url_for("dashboard"))
 
     return render_template("register.html")
 
@@ -123,7 +123,7 @@ def register():
 def logout():
     """Logout route"""
     session.pop("user", None)
-    return redirect(url_for("login"))
+    return redirect(url_for("landing"))
 
 
 @app.route("/")
@@ -131,6 +131,21 @@ def logout():
 def index():
     """Display the main evaluation form"""
     return render_template("index.html")
+
+
+@app.route("/landing")
+def landing():
+    """Display landing page"""
+    if "user" in session:
+        return redirect(url_for("dashboard"))
+    return render_template("landing.html")
+
+
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    """Display user dashboard"""
+    return render_template("dashboard.html")
 
 
 @app.route("/evaluate", methods=["POST"])

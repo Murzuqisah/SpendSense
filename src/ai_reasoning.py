@@ -1,9 +1,10 @@
-"""AI Reasoning module for SpendSense Agent - Claude integration."""
+"""AI Reasoning module for SpendSense Agent - OpenAI integration."""
 
 import json
 import logging
+import os
 from typing import Optional, List, Dict
-from anthropic import Anthropic
+from openai import OpenAI
 
 logger = logging.getLogger(__name__)
 
@@ -40,14 +41,14 @@ Be clear, concise, and avoid jargon."""
 
     def __init__(self, api_key: Optional[str] = None):
         """
-        Initialize AI Reasoning with Claude API.
+        Initialize AI Reasoning with OpenAI API.
 
         Args:
-            api_key: Anthropic API key (uses ANTHROPIC_API_KEY env var if not provided)
+            api_key: OpenAI API key (uses OPENAI_API_KEY env var if not provided)
         """
-        self.client = Anthropic()
+        self.client = OpenAI(api_key=api_key or os.getenv('OPENAI_API_KEY'))
         self.conversation_history = []
-        logger.info("AIReasoning initialized with Claude API")
+        logger.info("AIReasoning initialized with OpenAI API")
 
     def _build_analysis_prompt(
         self,
@@ -128,23 +129,23 @@ Important: Remember NOT to tell them to buy or not buy. Explain the situation an
             )
 
             # Add to conversation history
-            self.conversation_history.append({"role": "user", "content": prompt})
+            messages = [
+                {"role": "system", "content": self.SYSTEM_PROMPT},
+                {"role": "user", "content": prompt}
+            ]
 
-            # Call Claude API
-            response = self.client.messages.create(
-                model="claude-3-5-sonnet-20241022",
+            # Call OpenAI API
+            response = self.client.chat.completions.create(
+                model="gpt-4o-mini",
                 max_tokens=1024,
-                system=self.SYSTEM_PROMPT,
-                messages=self.conversation_history,
+                messages=messages
             )
 
             # Extract response
-            explanation = response.content[0].text
+            explanation = response.choices[0].message.content
 
-            # Add to conversation history
-            self.conversation_history.append(
-                {"role": "assistant", "content": explanation}
-            )
+            # Store conversation
+            self.conversation_history = messages + [{"role": "assistant", "content": explanation}]
 
             # Add disclaimer
             explanation_with_disclaimer = f"""{explanation}
@@ -182,16 +183,15 @@ Important: Remember NOT to tell them to buy or not buy. Explain the situation an
             # Add user question to history
             self.conversation_history.append({"role": "user", "content": user_question})
 
-            # Call Claude API
-            response = self.client.messages.create(
-                model="claude-3-5-sonnet-20241022",
+            # Call OpenAI API
+            response = self.client.chat.completions.create(
+                model="gpt-4o-mini",
                 max_tokens=512,
-                system=self.SYSTEM_PROMPT,
-                messages=self.conversation_history,
+                messages=self.conversation_history
             )
 
             # Extract response
-            answer = response.content[0].text
+            answer = response.choices[0].message.content
 
             # Add to history
             self.conversation_history.append({"role": "assistant", "content": answer})

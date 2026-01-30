@@ -90,9 +90,9 @@
 
     <!-- AI Insights -->
     <div class="card">
-        <h3>Analysis & Insights</h3>
+        <h3>💡 Analysis & Insights</h3>
         <div class="insight-text">
-            {{ ai_explanation }}
+            {{ ai_reasoning }}
         </div>
 
         {% if alternatives %}
@@ -117,7 +117,8 @@
 
     <!-- Actions -->
     <div class="action-buttons">
-        <a href="/" class="btn btn-primary">Evaluate Another Purchase</a>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+        <a href="/" class="btn btn-secondary">New Evaluation</a>
         <button onclick="window.print()" class="btn btn-secondary">Print Report</button>
     </div>
 </section>
