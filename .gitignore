@@ -82,3 +82,6 @@ results_*.json
 build/
 dist/
 *.egg-info/
+GIT_COMMIT_HISTORY.md
+REPOSITORY_SETUP.md
+
