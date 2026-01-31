@@ -159,27 +159,27 @@ def evaluate():
         monthly_income = request.form.get("monthly_income")
         fixed_expenses = request.form.get("fixed_expenses")
         savings_goal = request.form.get("savings_goal")
-        
+
         # Extract multiple items
         items = []
         total_cost = 0
         item_names = []
-        
+
         for key in request.form.keys():
-            if key.startswith('items[') and key.endswith('][name]'):
-                index = key.split('[')[1].split(']')[0]
-                name = request.form.get(f'items[{index}][name]')
-                cost = request.form.get(f'items[{index}][cost]')
+            if key.startswith("items[") and key.endswith("][name]"):
+                index = key.split("[")[1].split("]")[0]
+                name = request.form.get(f"items[{index}][name]")
+                cost = request.form.get(f"items[{index}][cost]")
                 if name and cost:
                     try:
                         cost_float = float(cost)
-                        items.append({'name': name, 'cost': cost_float})
+                        items.append({"name": name, "cost": cost_float})
                         total_cost += cost_float
                         item_names.append(name)
                     except ValueError:
                         pass
-        
-        item_name = ', '.join(item_names) if item_names else None
+
+        item_name = ", ".join(item_names) if item_names else None
         item_cost = total_cost
 
         # Validate inputs

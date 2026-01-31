@@ -14,14 +14,12 @@ logger = logging.getLogger(__name__)
 
 def print_banner():
     """Print SpendSense banner."""
-    print(
-        """
+    print("""
 ╔════════════════════════════════════════╗
 ║          SPENDSENSE AGENT              ║
 ║   Personal Budgeting Decision Tool     ║
 ╚════════════════════════════════════════╝
-"""
-    )
+""")
 
 
 def interactive_mode():
