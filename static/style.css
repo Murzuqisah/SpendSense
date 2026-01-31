@@ -14,7 +14,7 @@
     --cornsilk: #fefae0;
     --sunlit-clay: #dda15e;
     --copperwood: #bc6c25;
-    
+
     --primary-color: var(--olive-leaf);
     --primary-dark: var(--black-forest);
     --primary-light: var(--sunlit-clay);
@@ -279,11 +279,11 @@ body {
     .auth-card {
         margin: 1rem;
     }
-    
+
     .hero-content h1 {
         font-size: 2rem;
     }
-    
+
     .hero-subtitle {
         font-size: 1rem;
     }
@@ -869,7 +869,7 @@ small {
 }
 
 .decision-card.hard-stop {
-    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #88d2e0 0%, #3bd1ef 100%);
 }
 
 .decision-icon {
