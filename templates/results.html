@@ -21,7 +21,7 @@
             {% elif risk_level == 'HIGH' %}
             [ALERT]
             {% else %}
-            [STOP]
+            Hello, {{ session.get('user', 'User') }}
             {% endif %}
         </div>
         <h3>{{ decision_summary }}</h3>
