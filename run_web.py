@@ -16,12 +16,17 @@ from src.web_app import run_app
 
 def main():
     """Main entry point for web application"""
+    # Get environment variables for deployment
+    env_port = os.environ.get("PORT")
+    env_host = os.environ.get("HOST", "127.0.0.1")
+    
     parser = ArgumentParser(description="SpendSense Web Application")
     parser.add_argument(
-        "--host", default="127.0.0.1", help="Host to bind to (default: 127.0.0.1)"
+        "--host", default=env_host, help=f"Host to bind to (default: {env_host})"
     )
     parser.add_argument(
-        "--port", type=int, default=5000, help="Port to bind to (default: 5000)"
+        "--port", type=int, default=int(env_port) if env_port else 5000, 
+        help="Port to bind to (default: 5000 or $PORT if set)"
     )
     parser.add_argument("--debug", action="store_true", help="Enable debug mode")
     parser.add_argument(
