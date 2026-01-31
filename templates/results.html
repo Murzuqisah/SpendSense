@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}SpendSense - Decision Report{% endblock %}
+
+{% block content %}
+<section class="results-section">
+    <!-- Decision Summary -->
+    <div class="report-header">
+        <h2>Decision Analysis Report</h2>
+        <p class="timestamp">{{ timestamp }}</p>
+    </div>
+
+    <!-- Main Decision Card -->
+    <div
+        class="decision-card {% if risk_level == 'LOW' %}low-risk{% elif risk_level == 'MEDIUM' %}medium-risk{% elif risk_level == 'HIGH' %}high-risk{% else %}hard-stop{% endif %}">
+        <div class="decision-icon">
+            {% if risk_level == 'LOW' %}
+            [PASS]
+            {% elif risk_level == 'MEDIUM' %}
+            [WARN]
+            {% elif risk_level == 'HIGH' %}
+            [ALERT]
+            {% else %}
+            [STOP]
+            {% endif %}
+        </div>
+        <h3>{{ decision_summary }}</h3>
+        <p class="purchase-info">
+            {% if hard_stop_triggered %}
+            <strong>Hard Stop Triggered:</strong> {{ hard_stop_reason }}
+            {% else %}
+            <strong>Item:</strong> {{ purchase_item }}<br>
+            <strong>Cost:</strong> KSH {{ "%.2f"|format(purchase_cost) }}
+            {% endif %}
+        </p>
+    </div>
+
+    <!-- Risk Assessment -->
+    <div class="grid-2">
+        <div class="card">
+            <h3>Risk Assessment</h3>
+            <div
+                class="risk-badge {% if risk_level == 'LOW' %}low{% elif risk_level == 'MEDIUM' %}medium{% elif risk_level == 'HIGH' %}high{% else %}hard-stop{% endif %}">
+                {{ risk_level }}
+            </div>
+            <div class="metric">
+                <label>Confidence Score</label>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ confidence_score * 100 }}%"></div>
+                </div>
+                <span>{{ "%.1f"|format(confidence_score * 100) }}%</span>
+            </div>
+            <div class="metric">
+                <label>% of Disposable Income</label>
+                <span class="value">{{ "%.1f"|format(percentage_of_disposable) }}%</span>
+            </div>
+        </div>
+
+        <!-- Financial Analysis -->
+        <div class="card">
+            <h3>💵 Financial Analysis</h3>
+            <div class="financial-item">
+                <span>Monthly Income</span>
+                <span class="amount">KSH {{ "%.2f"|format(monthly_income) }}</span>
+            </div>
+            <div class="financial-item">
+                <span>Fixed Expenses</span>
+                <span class="amount">KSH {{ "%.2f"|format(fixed_expenses) }}</span>
+            </div>
+            <div class="financial-item">
+                <span>Savings Goal</span>
+                <span class="amount">KSH {{ "%.2f"|format(savings_goal) }}</span>
+            </div>
+            <div class="divider-thin"></div>
+            <div class="financial-item highlight">
+                <span>Disposable Income</span>
+                <span class="amount">
+                    {% if disposable_income < 0 %}<span class="negative">KSH {{ "%.2f"|format(disposable_income)
+                        }}</span>{% else %}<strong>KSH {{ "%.2f"|format(disposable_income) }}</strong>{% endif %}
+                </span>
+            </div>
+            {% if not hard_stop_triggered %}
+            <div class="financial-item highlight">
+                <span>Remaining After Purchase</span>
+                <span class="amount">KSH {{ "%.2f"|format(remaining_after_purchase) }}</span>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- AI Insights -->
+    <div class="card">
+        <h3>Analysis & Insights</h3>
+        <div class="insight-text structured-response">
+            {{ ai_reasoning | safe }}
+        </div>
+
+        {% if alternatives and alternatives|length > 0 %}
+        <h4>Suggested Alternatives</h4>
+        <ul class="alternatives-list">
+            {% for alt in alternatives %}
+            <li>{{ alt }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <!-- Recommended Next Steps -->
+    <div class="card">
+        <h3>Recommended Next Steps</h3>
+        <ol class="steps-list">
+            {% for step in next_steps %}
+            <li>{{ step }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+
+    <!-- Actions -->
+    <div class="action-buttons">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+        <a href="/" class="btn btn-secondary">New Evaluation</a>
+        <button onclick="window.print()" class="btn btn-secondary">Print Report</button>
+    </div>
+</section>
+{% endblock %}

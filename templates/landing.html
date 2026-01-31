@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}SpendSense - Smart Financial Decisions{% endblock %}
+
+{% block content %}
+<section class="landing-hero">
+    <div class="hero-content">
+        <h1>Make Smarter Purchase Decisions</h1>
+        <p class="hero-subtitle">Intelligent budgeting support that helps you evaluate purchases with confidence</p>
+        <div class="hero-actions">
+            <a href="{{ url_for('register') }}" class="btn btn-primary btn-large">Get Started</a>
+            <a href="{{ url_for('login') }}" class="btn btn-secondary btn-large">Sign In</a>
+        </div>
+    </div>
+</section>
+
+<section class="features-section">
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>Rule-Based Analysis</h3>
+            <p>Transparent, explainable financial rules that calculate your disposable income and assess purchase risk</p>
+        </div>
+        <div class="feature-card">
+            <h3>Confidence Scoring</h3>
+            <p>Quantified feasibility scores help you understand exactly how a purchase fits your budget</p>
+        </div>
+        <div class="feature-card">
+            <h3>AI-Powered Insights</h3>
+            <p>Get personalized explanations and alternative suggestions powered by advanced reasoning</p>
+        </div>
+    </div>
+</section>
+
+<section class="how-it-works">
+    <h2>How It Works</h2>
+    <div class="steps-grid">
+        <div class="step">
+            <div class="step-number">1</div>
+            <h4>Enter Your Finances</h4>
+            <p>Input your monthly income, expenses, and savings goals</p>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <h4>Describe Your Purchase</h4>
+            <p>Tell us what you want to buy and how much it costs</p>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <h4>Get Your Analysis</h4>
+            <p>Receive a detailed risk assessment with actionable insights</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <h2>Ready to Take Control of Your Spending?</h2>
+    <a href="{{ url_for('register') }}" class="btn btn-primary btn-large">Create Free Account</a>
+</section>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}SpendSense - Dashboard{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h2>👋 Welcome back, {{ session.user }}!</h2>
+    <p>Your financial decision companion</p>
+</section>
+
+<section class="dashboard-section">
+    <div class="quick-actions">
+        <a href="/" class="action-card">
+            <div class="action-icon">💰</div>
+            <h3>New Evaluation</h3>
+            <p>Analyze a purchase decision</p>
+        </a>
+        
+        <div class="action-card info">
+            <div class="action-icon">📊</div>
+            <h3>Quick Stats</h3>
+            <p>Track your decisions</p>
+        </div>
+        
+        <div class="action-card info">
+            <div class="action-icon">🎯</div>
+            <h3>Financial Tips</h3>
+            <p>Learn smart spending</p>
+        </div>
+    </div>
+</section>
+
+<section class="info-section">
+    <div class="info-card">
+        <h3>🚀 Getting Started</h3>
+        <ul>
+            <li>Click "New Evaluation" to analyze a purchase</li>
+            <li>Enter your monthly income and expenses</li>
+            <li>Get instant risk assessment and insights</li>
+            <li>Review alternatives and recommendations</li>
+        </ul>
+    </div>
+
+    <div class="info-card">
+        <h3>💡 Smart Spending Tips</h3>
+        <ul>
+            <li>Keep purchases under 30% of disposable income</li>
+            <li>Always maintain emergency savings</li>
+            <li>Compare alternatives before buying</li>
+            <li>Consider waiting 24-48 hours for big purchases</li>
+        </ul>
+    </div>
+
+    <div class="info-card">
+        <h3>🛡️ Privacy First</h3>
+        <ul>
+            <li>No data stored permanently</li>
+            <li>All calculations done locally</li>
+            <li>Your financial info stays private</li>
+            <li>No tracking or analytics</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

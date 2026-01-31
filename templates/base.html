@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SpendSense - Financial Decision Support{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-main">
+                    <a href="{{ url_for('landing') if not session.user else url_for('dashboard') }}">
+                        <h1 class="logo">SpendSense</h1>
+                    </a>
+                </div>
+                <div class="header-auth">
+                    {% if session.user %}
+                    <span class="user-info">Welcome, {{ session.user }}</span>
+                    <a href="{{ url_for('logout') }}" class="btn-logout">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('login') }}" class="btn-login">Login</a>
+                    <a href="{{ url_for('register') }}" class="btn-register">Register</a>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>SpendSense - Personal Budgeting Decision Support | Not a Financial Advisor</p>
+            <p class="disclaimer">[ALERT] This is not financial advice. SpendSense provides decision support only.</p>
+        </footer>
+    </div>
+</body>
+
+</html>
