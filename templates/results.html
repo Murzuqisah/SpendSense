@@ -11,9 +11,10 @@
     </div>
 
     <!-- Main Decision Card -->
-    <div
-        class="decision-card {% if risk_level == 'LOW' %}low-risk{% elif risk_level == 'MEDIUM' %}medium-risk{% elif risk_level == 'HIGH' %}high-risk{% else %}hard-stop{% endif %}">
-        <div class="decision-icon">
+    <div class="decision-card {% if risk_level == 'LOW' %}low-risk{% elif risk_level == 'MEDIUM' %}medium-risk{% elif risk_level == 'HIGH' %}high-risk{% else %}hard-stop{% endif %}"
+        style="border-left: 5px solid {% if risk_level == 'Low Risk' %}#10b981{% elif risk_level == 'Medium Risk' %}#f59e0b{% elif risk_level == 'High Risk' %}#ef4444{% else %}#7c3aed{% endif %};">
+        <div class="decision-icon"
+            style="color: {% if risk_level == 'Low Risk' %}#10b981{% elif risk_level == 'Medium Risk' %}#f59e0b{% elif risk_level == 'High Risk' %}#ef4444{% else %}#7c3aed{% endif %}; font-weight: bold; font-size: 1.1em;">
             {% if risk_level == 'LOW' %}
             [PASS]
             {% elif risk_level == 'MEDIUM' %}
@@ -24,7 +25,9 @@
             Hello, {{ session.get('user', 'User') }}
             {% endif %}
         </div>
-        <h3>{{ decision_summary }}</h3>
+        <h3
+            style="color: {% if risk_level == 'Low Risk' %}#10b981{% elif risk_level == 'Medium Risk' %}#f59e0b{% elif risk_level == 'High Risk' %}#ef4444{% else %}#7c3aed{% endif %};">
+            {{ decision_summary }}</h3>
         <p class="purchase-info">
             {% if hard_stop_triggered %}
             <strong>Hard Stop Triggered:</strong> {{ hard_stop_reason }}
@@ -39,8 +42,8 @@
     <div class="grid-2">
         <div class="card">
             <h3>Risk Assessment</h3>
-            <div
-                class="risk-badge {% if risk_level == 'LOW' %}low{% elif risk_level == 'MEDIUM' %}medium{% elif risk_level == 'HIGH' %}high{% else %}hard-stop{% endif %}">
+            <div class="risk-badge {% if risk_level == 'LOW' %}low{% elif risk_level == 'MEDIUM' %}medium{% elif risk_level == 'HIGH' %}high{% else %}hard-stop{% endif %}"
+                style="background-color: {% if risk_level == 'Low Risk' %}#dcfce7{% elif risk_level == 'Medium Risk' %}#fef3c7{% elif risk_level == 'High Risk' %}#fee2e2{% else %}#ede9fe{% endif %}; color: {% if risk_level == 'Low Risk' %}#166534{% elif risk_level == 'Medium Risk' %}#92400e{% elif risk_level == 'High Risk' %}#7f1d1d{% else %}#5b21b6{% endif %}; font-weight: bold; padding: 12px; border-radius: 6px; text-align: center; margin-bottom: 16px;">
                 {{ risk_level }}
             </div>
             <div class="metric">
