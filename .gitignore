@@ -85,3 +85,4 @@ dist/
 
 SpendSense/docs/*
 .github/*
+.github/copilot-instructions.md
