@@ -84,3 +84,4 @@ dist/
 *.egg-info/
 
 SpendSense/docs/*
+.github/*
