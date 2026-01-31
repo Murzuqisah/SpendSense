@@ -84,3 +84,5 @@ dist/
 *.egg-info/
 
 SpendSense/docs/*
+.github/*
+.github/copilot-instructions.md

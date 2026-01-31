@@ -110,14 +110,18 @@ class DecisionEngine:
                         item,
                         cost,
                         income,
+                        expenses,
+                        savings,
                         rule_result["disposable_income"],
                         risk_level,
                         confidence_score,
                     )
                     report["ai_reasoning"] = {
+                        "decision": ai_result["decision"],
+                        "confidence_score": ai_result["confidence_score"],
                         "explanation": ai_result["explanation"],
                         "alternatives": ai_result["alternatives"],
-                        "mode": "claude",
+                        "mode": "openai",
                     }
                 except Exception as e:
                     logger.warning(f"AI explanation failed, using fallback: {str(e)}")
@@ -161,16 +165,16 @@ class DecisionEngine:
             disposable: Disposable income
 
         Returns:
-            Dictionary with fallback explanation and alternatives
+            Dictionary with fallback explanation and alternatives in JSON format
         """
-        explanation = AIReasoning._get_fallback_explanation(
-            risk_level, cost, disposable
-        )
-        alternatives = AIReasoning._get_fallback_alternatives(risk_level)
+        confidence_score = min(1.0, round(cost / max(disposable, 1), 2))
+        result = AIReasoning._get_fallback_json_response(risk_level, cost, disposable)
 
         return {
-            "explanation": explanation,
-            "alternatives": alternatives,
+            "decision": result["decision"],
+            "confidence_score": result["confidence_score"],
+            "explanation": result["explanation"],
+            "alternatives": result["alternatives"],
             "mode": "fallback",
         }
 

@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 from typing import List, Dict
 from src.models import Transaction, TransactionCategory
 
-
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
