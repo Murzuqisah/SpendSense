@@ -3,126 +3,181 @@
 {% block title %}SpendSense - Decision Report{% endblock %}
 
 {% block content %}
-<section class="results-section">
-    <!-- Decision Summary -->
-    <div class="report-header">
-        <h2>Decision Analysis Report</h2>
-        <p class="timestamp">{{ timestamp }}</p>
-    </div>
-
-    <!-- Main Decision Card -->
-    <div class="decision-card {% if risk_level == 'LOW' %}low-risk{% elif risk_level == 'MEDIUM' %}medium-risk{% elif risk_level == 'HIGH' %}high-risk{% else %}hard-stop{% endif %}"
-        style="border-left: 5px solid {% if risk_level == 'Low Risk' %}#10b981{% elif risk_level == 'Medium Risk' %}#f59e0b{% elif risk_level == 'High Risk' %}#ef4444{% else %}#7c3aed{% endif %};">
-        <div class="decision-icon"
-            style="color: {% if risk_level == 'Low Risk' %}#10b981{% elif risk_level == 'Medium Risk' %}#f59e0b{% elif risk_level == 'High Risk' %}#ef4444{% else %}#7c3aed{% endif %}; font-weight: bold; font-size: 1.1em;">
-            {% if risk_level == 'LOW' %}
-            [PASS]
-            {% elif risk_level == 'MEDIUM' %}
-            [WARN]
-            {% elif risk_level == 'HIGH' %}
-            [ALERT]
-            {% else %}
-            Hello, {{ session.get('user', 'User') }}
-            {% endif %}
-        </div>
-        <h3
-            style="color: {% if risk_level == 'Low Risk' %}#10b981{% elif risk_level == 'Medium Risk' %}#f59e0b{% elif risk_level == 'High Risk' %}#ef4444{% else %}#7c3aed{% endif %};">
-            {{ decision_summary }}</h3>
-        <p class="purchase-info">
-            {% if hard_stop_triggered %}
-            <strong>Hard Stop Triggered:</strong> {{ hard_stop_reason }}
-            {% else %}
-            <strong>Item:</strong> {{ purchase_item }}<br>
-            <strong>Cost:</strong> KSH {{ "%.2f"|format(purchase_cost) }}
-            {% endif %}
-        </p>
-    </div>
-
-    <!-- Risk Assessment -->
-    <div class="grid-2">
-        <div class="card">
-            <h3>Risk Assessment</h3>
-            <div class="risk-badge {% if risk_level == 'LOW' %}low{% elif risk_level == 'MEDIUM' %}medium{% elif risk_level == 'HIGH' %}high{% else %}hard-stop{% endif %}"
-                style="background-color: {% if risk_level == 'Low Risk' %}#dcfce7{% elif risk_level == 'Medium Risk' %}#fef3c7{% elif risk_level == 'High Risk' %}#fee2e2{% else %}#ede9fe{% endif %}; color: {% if risk_level == 'Low Risk' %}#166534{% elif risk_level == 'Medium Risk' %}#92400e{% elif risk_level == 'High Risk' %}#7f1d1d{% else %}#5b21b6{% endif %}; font-weight: bold; padding: 12px; border-radius: 6px; text-align: center; margin-bottom: 16px;">
-                {{ risk_level }}
+<div class="dash-layout">
+    <aside class="dash-sidebar">
+        <div class="sidebar-user">
+            <div class="user-avatar"><i class="fa-solid fa-user"></i></div>
+            <div>
+                <strong>{{ session.user }}</strong>
+                <span>Personal Account</span>
             </div>
-            <div class="metric">
-                <label>Confidence Score</label>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: {{ confidence_score * 100 }}%"></div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}" class="nav-item"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+            <a href="{{ url_for('index') }}" class="nav-item"><i class="fa-solid fa-plus-circle"></i> New Evaluation</a>
+            <a href="{{ url_for('insights') }}" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Insights</a>
+            <a href="{{ url_for('settings') }}" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="{{ url_for('logout') }}" class="nav-item logout"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
+        </div>
+    </aside>
+
+    <main class="dash-main">
+        <section class="results-modern">
+            <!-- Report Header -->
+            <div class="report-top">
+                <div>
+                    <h1>Decision Analysis Report</h1>
+                    <p class="timestamp">{{ timestamp }}</p>
                 </div>
-                <span>{{ "%.1f"|format(confidence_score * 100) }}%</span>
+                <div class="report-actions">
+                    <a href="{{ url_for('index') }}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Evaluation</a>
+                    <button onclick="window.print()" class="btn btn-secondary"><i class="fa-solid fa-print"></i> Print</button>
+                </div>
             </div>
-            <div class="metric">
-                <label>% of Disposable Income</label>
-                <span class="value">{{ "%.1f"|format(percentage_of_disposable) }}%</span>
-            </div>
-        </div>
 
-        <!-- Financial Analysis -->
-        <div class="card">
-            <h3><i class="fa-solid fa-money-bill-wave"></i> Financial Analysis</h3>
-            <div class="financial-item">
-                <span>Monthly Income</span>
-                <span class="amount">KSH {{ "%.2f"|format(monthly_income) }}</span>
+            <!-- Risk Banner -->
+            <div class="risk-banner {% if risk_level == 'LOW' %}low{% elif risk_level == 'MEDIUM' %}medium{% elif risk_level == 'HIGH' %}high{% else %}stop{% endif %}">
+                <div class="risk-banner-left">
+                    <span class="risk-tag">{{ risk_level }}</span>
+                    <h2>{{ decision_summary }}</h2>
+                    {% if hard_stop_triggered %}
+                    <p><strong>Hard Stop:</strong> {{ hard_stop_reason }}</p>
+                    {% else %}
+                    <p><strong>{{ purchase_item }}</strong> — KSH {{ "%.2f"|format(purchase_cost) }}</p>
+                    {% endif %}
+                </div>
+                <div class="risk-banner-right">
+                    <div class="confidence-ring">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" class="ring-bg"/>
+                            <circle cx="50" cy="50" r="40" class="ring-fill" style="stroke-dasharray: {{ (confidence_score * 251)|int }} 251"/>
+                        </svg>
+                        <div class="ring-text">
+                            <span class="ring-value">{{ "%.0f"|format(confidence_score * 100) }}%</span>
+                            <span class="ring-label">Confidence</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="financial-item">
-                <span>Fixed Expenses</span>
-                <span class="amount">KSH {{ "%.2f"|format(fixed_expenses) }}</span>
-            </div>
-            <div class="financial-item">
-                <span>Savings Goal</span>
-                <span class="amount">KSH {{ "%.2f"|format(savings_goal) }}</span>
-            </div>
-            <div class="divider-thin"></div>
-            <div class="financial-item highlight">
-                <span>Disposable Income</span>
-                <span class="amount">
-                    {% if disposable_income < 0 %}<span class="negative">KSH {{ "%.2f"|format(disposable_income)
-                        }}</span>{% else %}<strong>KSH {{ "%.2f"|format(disposable_income) }}</strong>{% endif %}
-                </span>
-            </div>
-            {% if not hard_stop_triggered %}
-            <div class="financial-item highlight">
-                <span>Remaining After Purchase</span>
-                <span class="amount">KSH {{ "%.2f"|format(remaining_after_purchase) }}</span>
-            </div>
-            {% endif %}
-        </div>
-    </div>
 
-    <!-- AI Insights -->
-    <div class="card">
-        <h3>Analysis & Insights</h3>
-        <div class="insight-text structured-response">
-            {{ ai_reasoning | safe }}
-        </div>
+            <!-- Split Content -->
+            <div class="results-grid">
+                <!-- Left Column: Financials -->
+                <div class="results-col">
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <h3>Financial Breakdown</h3>
+                        </div>
+                        <div class="finance-rows">
+                            <div class="finance-row">
+                                <span>Monthly Income</span>
+                                <span class="amount">KSH {{ "%.2f"|format(monthly_income) }}</span>
+                            </div>
+                            <div class="finance-row">
+                                <span>Fixed Expenses</span>
+                                <span class="amount negative">- KSH {{ "%.2f"|format(fixed_expenses) }}</span>
+                            </div>
+                            <div class="finance-row">
+                                <span>Savings Goal</span>
+                                <span class="amount negative">- KSH {{ "%.2f"|format(savings_goal) }}</span>
+                            </div>
+                            <div class="finance-row total">
+                                <span>Disposable Income</span>
+                                <span class="amount {% if disposable_income < 0 %}negative{% endif %}">KSH {{ "%.2f"|format(disposable_income) }}</span>
+                            </div>
+                            {% if not hard_stop_triggered %}
+                            <div class="finance-row total">
+                                <span>After Purchase</span>
+                                <span class="amount">KSH {{ "%.2f"|format(remaining_after_purchase) }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
 
-        {% if alternatives and alternatives|length > 0 %}
-        <h4>Suggested Alternatives</h4>
-        <ul class="alternatives-list">
-            {% for alt in alternatives %}
-            <li>{{ alt }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-    </div>
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <i class="fa-solid fa-gauge-high"></i>
+                            <h3>Risk Metrics</h3>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">
+                                <span>% of Disposable Income</span>
+                                <strong>{{ "%.1f"|format(percentage_of_disposable) }}%</strong>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-bar-fill {% if percentage_of_disposable <= 30 %}low{% elif percentage_of_disposable <= 60 %}medium{% else %}high{% endif %}" style="width: {{ [percentage_of_disposable, 100]|min }}%"></div>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">
+                                <span>Confidence Score</span>
+                                <strong>{{ "%.1f"|format(confidence_score * 100) }}%</strong>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-bar-fill" style="width: {{ confidence_score * 100 }}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Recommended Next Steps -->
-    <div class="card">
-        <h3>Recommended Next Steps</h3>
-        <ol class="steps-list">
-            {% for step in next_steps %}
-            <li>{{ step }}</li>
-            {% endfor %}
-        </ol>
-    </div>
+                <!-- Right Column: AI Insights -->
+                <div class="results-col">
+                    <div class="result-card ai-insight-card">
+                        <div class="result-card-header">
+                            <i class="fa-solid fa-robot"></i>
+                            <h3>AI Analysis</h3>
+                            <span class="ai-badge">GPT-4o</span>
+                        </div>
+                        <div class="ai-response">
+                            {{ ai_reasoning | safe }}
+                        </div>
+                    </div>
 
-    <!-- Actions -->
-    <div class="action-buttons">
-        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
-        <a href="/" class="btn btn-secondary">New Evaluation</a>
-        <button onclick="window.print()" class="btn btn-secondary">Print Report</button>
-    </div>
-</section>
+                    {% if alternatives and alternatives|length > 0 %}
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            <h3>Suggested Alternatives</h3>
+                        </div>
+                        <div class="alternatives-modern">
+                            {% for alt in alternatives %}
+                            <div class="alt-item">
+                                <span class="alt-num">{{ loop.index }}</span>
+                                <p>{{ alt }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if next_steps and next_steps|length > 0 %}
+                    <div class="result-card">
+                        <div class="result-card-header">
+                            <i class="fa-solid fa-list-check"></i>
+                            <h3>Recommended Next Steps</h3>
+                        </div>
+                        <div class="steps-modern">
+                            {% for step in next_steps %}
+                            <div class="step-row">
+                                <span class="step-check"><i class="fa-solid fa-circle-arrow-right"></i></span>
+                                <p>{{ step }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Bottom Actions -->
+            <div class="results-bottom">
+                <a href="{{ url_for('dashboard') }}" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+                <a href="{{ url_for('index') }}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Evaluation</a>
+            </div>
+        </section>
+    </main>
+</div>
 {% endblock %}

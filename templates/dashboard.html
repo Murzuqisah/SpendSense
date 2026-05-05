@@ -3,62 +3,85 @@
 {% block title %}SpendSense - Dashboard{% endblock %}
 
 {% block content %}
-<section class="hero">
-    <h2>Welcome back, {{ session.user }}!</h2>
-    <p>Your financial decision companion</p>
-</section>
-
-<section class="dashboard-section">
-    <div class="quick-actions">
-        <a href="/" class="action-card">
-            <div class="action-icon"><i class="fa-solid fa-coins"></i></div>
-            <h3>New Evaluation</h3>
-            <p>Analyze a purchase decision</p>
-        </a>
-        
-        <div class="action-card info">
-            <div class="action-icon"><i class="fa-solid fa-chart-column"></i></div>
-            <h3>Quick Stats</h3>
-            <p>Track your decisions</p>
+<div class="dash-layout">
+    <aside class="dash-sidebar">
+        <div class="sidebar-user">
+            <div class="user-avatar"><i class="fa-solid fa-user"></i></div>
+            <div>
+                <strong>{{ session.user }}</strong>
+                <span>Personal Account</span>
+            </div>
         </div>
-        
-        <div class="action-card info">
-            <div class="action-icon"><i class="fa-solid fa-bullseye"></i></div>
-            <h3>Financial Tips</h3>
-            <p>Learn smart spending</p>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}" class="nav-item active"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+            <a href="{{ url_for('index') }}" class="nav-item"><i class="fa-solid fa-plus-circle"></i> New Evaluation</a>
+            <a href="{{ url_for('insights') }}" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Insights</a>
+            <a href="{{ url_for('settings') }}" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="{{ url_for('logout') }}" class="nav-item logout"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
         </div>
-    </div>
-</section>
+    </aside>
 
-<section class="info-section">
-    <div class="info-card">
-        <h3><i class="fa-solid fa-rocket"></i> Getting Started</h3>
-        <ul>
-            <li>Click "New Evaluation" to analyze a purchase</li>
-            <li>Enter your monthly income and expenses</li>
-            <li>Get instant risk assessment and insights</li>
-            <li>Review alternatives and recommendations</li>
-        </ul>
-    </div>
+    <main class="dash-main">
+        <header class="dash-header">
+            <div>
+                <h1>Welcome back, {{ session.user }}</h1>
+                <p>What would you like to evaluate today?</p>
+            </div>
+            <a href="{{ url_for('index') }}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Evaluation</a>
+        </header>
 
-    <div class="info-card">
-        <h3><i class="fa-solid fa-lightbulb"></i> Smart Spending Tips</h3>
-        <ul>
-            <li>Keep purchases under 30% of disposable income</li>
-            <li>Always maintain emergency savings</li>
-            <li>Compare alternatives before buying</li>
-            <li>Consider waiting 24-48 hours for big purchases</li>
-        </ul>
-    </div>
+        <!-- Quick Actions -->
+        <div class="quick-action-grid">
+            <a href="{{ url_for('index') }}" class="quick-action-card primary">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                <strong>Evaluate a Purchase</strong>
+                <span>Get AI-powered risk analysis</span>
+            </a>
+            <a href="{{ url_for('insights') }}" class="quick-action-card">
+                <i class="fa-solid fa-chart-pie"></i>
+                <strong>View Insights</strong>
+                <span>Risk framework & strategies</span>
+            </a>
+            <a href="{{ url_for('settings') }}" class="quick-action-card">
+                <i class="fa-solid fa-gear"></i>
+                <strong>Settings</strong>
+                <span>Manage your account</span>
+            </a>
+        </div>
 
-    <div class="info-card">
-        <h3><i class="fa-solid fa-shield-halved"></i> Privacy First</h3>
-        <ul>
-            <li>No data stored permanently</li>
-            <li>All calculations done locally</li>
-            <li>Your financial info stays private</li>
-            <li>No tracking or analytics</li>
-        </ul>
-    </div>
-</section>
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div>
+                    <span class="stat-card-label">Risk Levels</span>
+                    <span class="stat-card-value">4 Tiers</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-icon"><i class="fa-solid fa-robot"></i></div>
+                <div>
+                    <span class="stat-card-label">AI Engine</span>
+                    <span class="stat-card-value">GPT-4o</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-icon"><i class="fa-solid fa-bolt"></i></div>
+                <div>
+                    <span class="stat-card-label">Analysis</span>
+                    <span class="stat-card-value">Instant</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-icon"><i class="fa-solid fa-lock"></i></div>
+                <div>
+                    <span class="stat-card-label">Data</span>
+                    <span class="stat-card-value">Private</span>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
 {% endblock %}
