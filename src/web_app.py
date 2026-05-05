@@ -8,10 +8,14 @@ import re
 from datetime import datetime
 from pathlib import Path
 from functools import wraps
+from dotenv import load_dotenv
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from src.decision_engine import DecisionEngine
 from src.validation import InputValidator, ValidationError
+
+# Load .env file
+load_dotenv()
 
 # Get the absolute path to the project root
 PROJECT_ROOT = Path(__file__).parent.parent
