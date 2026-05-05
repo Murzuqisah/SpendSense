@@ -1,59 +1,218 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendSense - Smart Financial Decisions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+</head>
+<body class="landing-page">
 
-{% block title %}SpendSense - Smart Financial Decisions{% endblock %}
+    <!-- Hero: Split Layout -->
+    <section class="hero-split">
+        <!-- Left Panel (Dark) -->
+        <div class="hero-left">
+            <nav class="hero-nav">
+                <a href="{{ url_for('landing') }}" class="brand">SpendSense</a>
+                <div class="nav-menu">
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How it works</a>
+                </div>
+                <div class="nav-actions">
+                    <a href="{{ url_for('login') }}" class="btn-ghost">Account</a>
+                    <a href="{{ url_for('register') }}" class="btn-accent">Get Started</a>
+                </div>
+            </nav>
 
-{% block content %}
-<section class="landing-hero">
-    <div class="hero-content">
-        <h1>Make Smarter Purchase Decisions</h1>
-        <p class="hero-subtitle">Intelligent budgeting support that helps you evaluate purchases with confidence</p>
-        <div class="hero-actions">
-            <a href="{{ url_for('register') }}" class="btn btn-primary btn-large">Get Started</a>
-            <a href="{{ url_for('login') }}" class="btn btn-secondary btn-large">Sign In</a>
-        </div>
-    </div>
-</section>
+            <div class="hero-content">
+                <h1>Evaluate Your Spending.<br><span class="accent-text">Decide with Clarity.</span></h1>
+                <p class="hero-desc">Smart budgeting, rule-based risk analysis, and AI-powered insights help you make confident purchase decisions.</p>
 
-<section class="features-section">
-    <div class="features-grid">
-        <div class="feature-card">
-            <h3>Rule-Based Analysis</h3>
-            <p>Transparent, explainable financial rules that calculate your disposable income and assess purchase risk</p>
-        </div>
-        <div class="feature-card">
-            <h3>Confidence Scoring</h3>
-            <p>Quantified feasibility scores help you understand exactly how a purchase fits your budget</p>
-        </div>
-        <div class="feature-card">
-            <h3>AI-Powered Insights</h3>
-            <p>Get personalized explanations and alternative suggestions powered by advanced reasoning</p>
-        </div>
-    </div>
-</section>
+                <div class="hero-features-list">
+                    <div class="hero-feature-item">
+                        <div class="hero-feature-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                        <div>
+                            <strong>Track & Analyze</strong>
+                            <span>Get clear insights into spending risk levels.</span>
+                        </div>
+                    </div>
+                    <div class="hero-feature-item">
+                        <div class="hero-feature-icon"><i class="fa-solid fa-bell"></i></div>
+                        <div>
+                            <strong>Smart Alerts</strong>
+                            <span>Know when a purchase exceeds safe thresholds.</span>
+                        </div>
+                    </div>
+                    <div class="hero-feature-item">
+                        <div class="hero-feature-icon"><i class="fa-solid fa-lock"></i></div>
+                        <div>
+                            <strong>Secure & Private</strong>
+                            <span>No data stored. Your finances stay private.</span>
+                        </div>
+                    </div>
+                </div>
 
-<section class="how-it-works">
-    <h2>How It Works</h2>
-    <div class="steps-grid">
-        <div class="step">
-            <div class="step-number">1</div>
-            <h4>Enter Your Finances</h4>
-            <p>Input your monthly income, expenses, and savings goals</p>
+                <a href="{{ url_for('register') }}" class="cta-btn">Get Started <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
         </div>
-        <div class="step">
-            <div class="step-number">2</div>
-            <h4>Describe Your Purchase</h4>
-            <p>Tell us what you want to buy and how much it costs</p>
-        </div>
-        <div class="step">
-            <div class="step-number">3</div>
-            <h4>Get Your Analysis</h4>
-            <p>Receive a detailed risk assessment with actionable insights</p>
-        </div>
-    </div>
-</section>
 
-<section class="cta-section">
-    <h2>Ready to Take Control of Your Spending?</h2>
-    <a href="{{ url_for('register') }}" class="btn btn-primary btn-large">Create Free Account</a>
-</section>
-{% endblock %}
+        <!-- Right Panel (Light with floating cards) -->
+        <div class="hero-right">
+            <div class="cards-container">
+                <!-- Spending Overview Card -->
+                <div class="ui-card card-overview floating-1">
+                    <div class="ui-card-header">
+                        <span>Spending Overview</span>
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </div>
+                    <p class="ui-card-subtitle">You've used KSH 12,000 this month</p>
+                    <div class="mini-chart">
+                        <div class="bar" style="height: 40%"></div>
+                        <div class="bar" style="height: 65%"></div>
+                        <div class="bar" style="height: 50%"></div>
+                        <div class="bar" style="height: 80%"></div>
+                        <div class="bar active" style="height: 55%"></div>
+                        <div class="bar" style="height: 35%"></div>
+                        <div class="bar" style="height: 70%"></div>
+                    </div>
+                    <div class="chart-labels">
+                        <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                    </div>
+                </div>
+
+                <!-- Risk Score Card -->
+                <div class="ui-card card-risk floating-2">
+                    <div class="ui-card-header">
+                        <span>Risk Score</span>
+                    </div>
+                    <div class="risk-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" class="ring-bg"/>
+                            <circle cx="50" cy="50" r="40" class="ring-fill" stroke-dasharray="175 251"/>
+                        </svg>
+                        <div class="risk-circle-text">
+                            <span class="risk-number">LOW</span>
+                            <span class="risk-label">Safe</span>
+                        </div>
+                    </div>
+                    <div class="risk-categories">
+                        <div class="risk-cat"><i class="fa-solid fa-cart-shopping"></i> Groceries <span>KSH 3,400</span></div>
+                        <div class="risk-cat"><i class="fa-solid fa-bag-shopping"></i> Shopping <span>KSH 2,200</span></div>
+                        <div class="risk-cat"><i class="fa-solid fa-utensils"></i> Dining <span>KSH 1,800</span></div>
+                    </div>
+                </div>
+
+                <!-- AI Insight Card -->
+                <div class="ui-card card-ai floating-3">
+                    <div class="ui-card-header">
+                        <i class="fa-solid fa-robot"></i>
+                        <span>AI Insight</span>
+                    </div>
+                    <p class="ai-message">This purchase uses 40% of your disposable income. Consider waiting or exploring alternatives.</p>
+                </div>
+
+                <!-- Confidence Badge -->
+                <div class="ui-card card-confidence floating-1">
+                    <div class="confidence-display">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <div>
+                            <span class="conf-label">Confidence</span>
+                            <span class="conf-value">40%</span>
+                        </div>
+                    </div>
+                    <div class="conf-bar">
+                        <div class="conf-bar-fill" style="width: 40%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="section-header">
+            <span class="section-tag">Features</span>
+            <h2>Everything you need to make smarter decisions</h2>
+            <p>Powerful tools that give you clarity before every purchase.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-card-icon"><i class="fa-solid fa-ruler-combined"></i></div>
+                <h3>Rule-Based Analysis</h3>
+                <p>Transparent financial rules calculate disposable income and assess purchase risk with clear thresholds.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <h3>Confidence Scoring</h3>
+                <p>Quantified feasibility scores show exactly how a purchase fits within your budget constraints.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-icon"><i class="fa-solid fa-brain"></i></div>
+                <h3>AI-Powered Insights</h3>
+                <p>Get structured explanations and alternative suggestions powered by advanced AI reasoning.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                <h3>Multi-Item Evaluation</h3>
+                <p>Analyze multiple purchases at once to understand cumulative impact on your finances.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Instant Results</h3>
+                <p>Real-time validation and analysis delivers your decision report in seconds.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-card-icon"><i class="fa-solid fa-lock"></i></div>
+                <h3>Private & Secure</h3>
+                <p>No persistent financial data storage. Your information stays yours.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="steps-section" id="how-it-works">
+        <div class="section-header">
+            <span class="section-tag">Process</span>
+            <h2>Three steps to clarity</h2>
+        </div>
+        <div class="steps-grid">
+            <div class="step-item">
+                <div class="step-number">01</div>
+                <h3>Enter Finances</h3>
+                <p>Input your monthly income, fixed expenses, and savings goals.</p>
+            </div>
+            <div class="step-divider"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="step-item">
+                <div class="step-number">02</div>
+                <h3>Add Purchases</h3>
+                <p>Describe what you want to buy and the cost of each item.</p>
+            </div>
+            <div class="step-divider"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="step-item">
+                <div class="step-number">03</div>
+                <h3>Get Analysis</h3>
+                <p>Receive risk assessment, confidence score, and AI-powered insights.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to spend smarter?</h2>
+            <p>Join SpendSense and make every purchase decision with confidence.</p>
+            <a href="{{ url_for('register') }}" class="cta-btn">Create Free Account <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <div class="footer-inner">
+            <span class="brand">SpendSense</span>
+            <p>Not a financial advisor. Just clearer thinking about your money.</p>
+            <p class="disclaimer">This is not financial advice. SpendSense provides decision support only.</p>
+        </div>
+    </footer>
+</body>
+</html>
