@@ -9,24 +9,24 @@
 }
 
 :root {
-    --olive-leaf: #606c38;
-    --black-forest: #283618;
-    --cornsilk: #fefae0;
-    --sunlit-clay: #dda15e;
-    --copperwood: #bc6c25;
+    --ink-black: #0d1321;
+    --deep-space-blue: #1d2d44;
+    --blue-slate: #3e5c76;
+    --dusty-denim: #748cab;
+    --eggshell: #f0ebd8;
 
-    --primary-color: var(--olive-leaf);
-    --primary-dark: var(--black-forest);
-    --primary-light: var(--sunlit-clay);
-    --success-color: var(--olive-leaf);
-    --warning-color: var(--sunlit-clay);
-    --danger-color: var(--copperwood);
-    --light-bg: var(--cornsilk);
-    --border-color: #d4d4a8;
-    --text-primary: var(--black-forest);
-    --text-secondary: #5a5a3d;
-    --shadow: 0 2px 4px rgba(40, 54, 24, 0.1);
-    --shadow-lg: 0 10px 25px rgba(40, 54, 24, 0.15);
+    --primary-color: var(--blue-slate);
+    --primary-dark: var(--deep-space-blue);
+    --primary-light: var(--dusty-denim);
+    --success-color: #3e7c5f;
+    --warning-color: #c4873b;
+    --danger-color: #b94a48;
+    --light-bg: var(--eggshell);
+    --border-color: #d6d1be;
+    --text-primary: var(--ink-black);
+    --text-secondary: var(--dusty-denim);
+    --shadow: 0 2px 4px rgba(13, 19, 33, 0.08);
+    --shadow-lg: 0 10px 25px rgba(13, 19, 33, 0.12);
 }
 
 /* ============================================
@@ -51,8 +51,8 @@ body {
    ============================================ */
 
 .header {
-    background: linear-gradient(135deg, var(--black-forest) 0%, var(--olive-leaf) 100%);
-    color: var(--cornsilk);
+    background: linear-gradient(135deg, var(--ink-black) 0%, var(--deep-space-blue) 100%);
+    color: var(--eggshell);
     padding: 1rem 2rem;
     box-shadow: var(--shadow-lg);
 }
@@ -72,7 +72,7 @@ body {
 
 .header-main a {
     text-decoration: none;
-    color: var(--cornsilk);
+    color: var(--eggshell);
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -99,7 +99,7 @@ body {
 }
 
 .user-info {
-    color: var(--cornsilk);
+    color: var(--eggshell);
     font-weight: 500;
     font-size: 0.875rem;
 }
@@ -119,32 +119,32 @@ body {
 
 .btn-login {
     background-color: transparent;
-    color: var(--cornsilk);
-    border: 1px solid var(--cornsilk);
+    color: var(--eggshell);
+    border: 1px solid var(--eggshell);
 }
 
 .btn-login:hover {
-    background-color: rgba(254, 250, 224, 0.1);
+    background-color: rgba(240, 235, 216, 0.1);
 }
 
 .btn-register {
-    background-color: var(--sunlit-clay);
-    color: var(--black-forest);
+    background-color: var(--blue-slate);
+    color: var(--eggshell);
 }
 
 .btn-register:hover {
-    background-color: var(--copperwood);
+    background-color: var(--dusty-denim);
     transform: translateY(-2px);
 }
 
 .btn-logout {
     background-color: transparent;
-    color: var(--cornsilk);
-    border: 1px solid var(--cornsilk);
+    color: var(--eggshell);
+    border: 1px solid var(--eggshell);
 }
 
 .btn-logout:hover {
-    background-color: rgba(254, 250, 224, 0.1);
+    background-color: rgba(240, 235, 216, 0.1);
 }
 
 /* ============================================
@@ -230,7 +230,7 @@ body {
 }
 
 .auth-footer a {
-    color: var(--olive-leaf);
+    color: var(--blue-slate);
     text-decoration: none;
     font-weight: 600;
 }
@@ -250,13 +250,13 @@ body {
 }
 
 .auth-form .btn-primary {
-    background-color: var(--olive-leaf);
-    color: var(--cornsilk);
+    background-color: var(--blue-slate);
+    color: var(--eggshell);
     width: 100%;
 }
 
 .auth-form .btn-primary:hover {
-    background-color: var(--black-forest);
+    background-color: var(--deep-space-blue);
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
 }
@@ -414,12 +414,12 @@ small {
     padding: 1.5rem;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
-    border-left: 4px solid var(--olive-leaf);
+    border-left: 4px solid var(--blue-slate);
 }
 
 .btn-remove {
-    background-color: var(--copperwood);
-    color: var(--cornsilk);
+    background-color: var(--danger-color);
+    color: var(--eggshell);
     padding: 0.5rem 1rem;
     margin-top: 0.5rem;
 }
@@ -461,28 +461,28 @@ small {
 }
 
 .btn-primary {
-    background-color: var(--olive-leaf);
-    color: var(--cornsilk);
+    background-color: var(--blue-slate);
+    color: var(--eggshell);
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
 }
 
 .btn-primary:hover {
-    background-color: var(--black-forest);
+    background-color: var(--deep-space-blue);
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
 }
 
 .btn-secondary {
     background-color: transparent;
-    color: var(--olive-leaf);
-    border: 2px solid var(--olive-leaf);
+    color: var(--blue-slate);
+    border: 2px solid var(--blue-slate);
     margin-bottom: 0.5rem;
 }
 
 .btn-secondary:hover {
-    background-color: var(--olive-leaf);
-    color: var(--cornsilk);
+    background-color: var(--blue-slate);
+    color: var(--eggshell);
     transform: translateY(-2px);
 }
 
@@ -536,8 +536,8 @@ small {
    ============================================ */
 
 .landing-hero {
-    background: linear-gradient(135deg, var(--olive-leaf) 0%, var(--black-forest) 100%);
-    color: var(--cornsilk);
+    background: linear-gradient(135deg, var(--blue-slate) 0%, var(--deep-space-blue) 100%);
+    color: var(--eggshell);
     padding: 6rem 2rem;
     text-align: center;
 }
@@ -586,11 +586,11 @@ small {
     padding: 2rem;
     border-radius: 0.5rem;
     box-shadow: var(--shadow);
-    border-top: 4px solid var(--olive-leaf);
+    border-top: 4px solid var(--blue-slate);
 }
 
 .feature-card h3 {
-    color: var(--black-forest);
+    color: var(--deep-space-blue);
     margin-bottom: 1rem;
     font-size: 1.25rem;
 }
@@ -607,7 +607,7 @@ small {
 }
 
 .how-it-works h2 {
-    color: var(--black-forest);
+    color: var(--deep-space-blue);
     font-size: 2rem;
     margin-bottom: 3rem;
 }
@@ -627,8 +627,8 @@ small {
 .step-number {
     width: 60px;
     height: 60px;
-    background: var(--olive-leaf);
-    color: var(--cornsilk);
+    background: var(--blue-slate);
+    color: var(--eggshell);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -639,7 +639,7 @@ small {
 }
 
 .step h4 {
-    color: var(--black-forest);
+    color: var(--deep-space-blue);
     margin-bottom: 0.5rem;
     font-size: 1.125rem;
 }
@@ -649,25 +649,25 @@ small {
 }
 
 .cta-section {
-    background: linear-gradient(135deg, var(--sunlit-clay) 0%, var(--copperwood) 100%);
-    color: var(--cornsilk);
+    background: linear-gradient(135deg, var(--dusty-denim) 0%, var(--danger-color) 100%);
+    color: var(--eggshell);
     padding: 4rem 2rem;
     text-align: center;
 }
 
 .cta-section h2 {
-    color: var(--cornsilk);
+    color: var(--eggshell);
     font-size: 2rem;
     margin-bottom: 2rem;
 }
 
 .cta-section .btn-primary {
-    background: var(--black-forest);
-    color: var(--cornsilk);
+    background: var(--deep-space-blue);
+    color: var(--eggshell);
 }
 
 .cta-section .btn-primary:hover {
-    background: var(--olive-leaf);
+    background: var(--blue-slate);
 }
 
 /* ============================================
@@ -981,7 +981,7 @@ small {
 .insight-text {
     background-color: var(--light-bg);
     padding: 1.5rem;
-    border-left: 4px solid var(--olive-leaf);
+    border-left: 4px solid var(--blue-slate);
     border-radius: 0.25rem;
     line-height: 1.8;
     margin-bottom: 1rem;
@@ -992,7 +992,7 @@ small {
 }
 
 .structured-response strong {
-    color: var(--black-forest);
+    color: var(--deep-space-blue);
     display: block;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
@@ -1010,7 +1010,7 @@ small {
     margin-bottom: 0.75rem;
     background-color: var(--light-bg);
     border-radius: 0.375rem;
-    border-left: 4px solid var(--sunlit-clay);
+    border-left: 4px solid var(--dusty-denim);
     position: relative;
     padding-left: 2.5rem;
 }
@@ -1021,8 +1021,8 @@ small {
     position: absolute;
     left: 1rem;
     top: 1rem;
-    background: var(--sunlit-clay);
-    color: var(--cornsilk);
+    background: var(--dusty-denim);
+    color: var(--eggshell);
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -1103,8 +1103,8 @@ small {
    ============================================ */
 
 .footer {
-    background-color: var(--black-forest);
-    color: var(--cornsilk);
+    background-color: var(--deep-space-blue);
+    color: var(--eggshell);
     text-align: center;
     padding: 2rem;
     margin-top: 3rem;
