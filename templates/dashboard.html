@@ -4,7 +4,6 @@
 
 {% block content %}
 <div class="dash-layout">
-    <!-- Sidebar -->
     <aside class="dash-sidebar">
         <div class="sidebar-user">
             <div class="user-avatar"><i class="fa-solid fa-user"></i></div>
@@ -24,17 +23,35 @@
         </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="dash-main">
         <header class="dash-header">
             <div>
                 <h1>Welcome back, {{ session.user }}</h1>
-                <p>Your financial decision companion</p>
+                <p>What would you like to evaluate today?</p>
             </div>
-            <a href="/" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Evaluation</a>
+            <a href="{{ url_for('index') }}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Evaluation</a>
         </header>
 
-        <!-- Quick Stats -->
+        <!-- Quick Actions -->
+        <div class="quick-action-grid">
+            <a href="{{ url_for('index') }}" class="quick-action-card primary">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                <strong>Evaluate a Purchase</strong>
+                <span>Get AI-powered risk analysis</span>
+            </a>
+            <a href="{{ url_for('insights') }}" class="quick-action-card">
+                <i class="fa-solid fa-chart-pie"></i>
+                <strong>View Insights</strong>
+                <span>Risk framework & strategies</span>
+            </a>
+            <a href="{{ url_for('settings') }}" class="quick-action-card">
+                <i class="fa-solid fa-gear"></i>
+                <strong>Settings</strong>
+                <span>Manage your account</span>
+            </a>
+        </div>
+
+        <!-- Stats -->
         <div class="stats-row">
             <div class="stat-card">
                 <div class="stat-card-icon"><i class="fa-solid fa-shield-halved"></i></div>
@@ -62,62 +79,6 @@
                 <div>
                     <span class="stat-card-label">Data</span>
                     <span class="stat-card-value">Private</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Content Grid -->
-        <div class="dash-grid">
-            <!-- Getting Started -->
-            <div class="dash-card">
-                <div class="dash-card-header">
-                    <h3><i class="fa-solid fa-rocket"></i> Getting Started</h3>
-                </div>
-                <ul class="dash-list">
-                    <li><i class="fa-solid fa-circle-check"></i> Click "New Evaluation" to analyze a purchase</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Enter your monthly income and expenses</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Get instant risk assessment and insights</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Review alternatives and recommendations</li>
-                </ul>
-            </div>
-
-            <!-- AI Assistant Preview -->
-            <div class="dash-card ai-card">
-                <div class="dash-card-header">
-                    <h3><i class="fa-solid fa-robot"></i> AI Assistant</h3>
-                    <span class="status-badge">Online</span>
-                </div>
-                <div class="ai-preview">
-                    <div class="ai-bubble">
-                        <p>I can help you evaluate purchases, assess risk levels, and suggest alternatives. Start a new evaluation to get personalized insights.</p>
-                    </div>
-                    <a href="/" class="btn btn-primary btn-sm">Start Evaluation <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-            </div>
-
-            <!-- Smart Tips -->
-            <div class="dash-card">
-                <div class="dash-card-header">
-                    <h3><i class="fa-solid fa-lightbulb"></i> Smart Spending Tips</h3>
-                </div>
-                <ul class="dash-list tips">
-                    <li><i class="fa-solid fa-arrow-trend-down"></i> Keep purchases under 30% of disposable income</li>
-                    <li><i class="fa-solid fa-piggy-bank"></i> Always maintain emergency savings</li>
-                    <li><i class="fa-solid fa-scale-balanced"></i> Compare alternatives before buying</li>
-                    <li><i class="fa-solid fa-clock"></i> Wait 24-48 hours for big purchases</li>
-                </ul>
-            </div>
-
-            <!-- Risk Framework -->
-            <div class="dash-card">
-                <div class="dash-card-header">
-                    <h3><i class="fa-solid fa-chart-bar"></i> Risk Framework</h3>
-                </div>
-                <div class="risk-legend-modern">
-                    <div class="risk-row"><span class="risk-dot low"></span><strong>LOW</strong><span>≤30% disposable</span></div>
-                    <div class="risk-row"><span class="risk-dot medium"></span><strong>MEDIUM</strong><span>30-60% disposable</span></div>
-                    <div class="risk-row"><span class="risk-dot high"></span><strong>HIGH</strong><span>>60% disposable</span></div>
-                    <div class="risk-row"><span class="risk-dot stop"></span><strong>STOP</strong><span>Cannot afford</span></div>
                 </div>
             </div>
         </div>

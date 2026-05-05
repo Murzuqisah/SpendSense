@@ -2117,3 +2117,86 @@ small {
 @media (max-width: 768px) {
     .risk-framework-grid { grid-template-columns: 1fr; }
 }
+
+
+/* ============================================
+   Quick Action Grid (Dashboard)
+   ============================================ */
+
+.quick-action-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.quick-action-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: var(--ink-black);
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.quick-action-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--blue-slate);
+}
+
+.quick-action-card.primary {
+    background: var(--deep-space-blue);
+    color: var(--eggshell);
+    border-color: var(--deep-space-blue);
+}
+
+.quick-action-card.primary span { color: var(--dusty-denim); }
+
+.quick-action-card i {
+    font-size: 1.5rem;
+    color: var(--blue-slate);
+}
+
+.quick-action-card.primary i { color: var(--eggshell); }
+
+.quick-action-card strong {
+    font-size: 0.95rem;
+}
+
+.quick-action-card span {
+    font-size: 0.78rem;
+    color: var(--dusty-denim);
+}
+
+/* ============================================
+   Eval Page (Single Column)
+   ============================================ */
+
+.eval-page {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.eval-page .eval-header {
+    margin-bottom: 2rem;
+}
+
+.eval-page .eval-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.eval-page .eval-header p {
+    color: var(--dusty-denim);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .quick-action-grid { grid-template-columns: 1fr; }
+}

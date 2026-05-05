@@ -3,107 +3,64 @@
 {% block title %}SpendSense - Evaluate Your Purchase{% endblock %}
 
 {% block content %}
-<div class="eval-layout">
-    <!-- Main Form Area -->
-    <div class="eval-main">
-        <div class="eval-header">
-            <h1>Evaluate Your Purchase</h1>
-            <p>Enter your financial details and items to get a personalized risk analysis</p>
-        </div>
+<div class="eval-page">
+    <div class="eval-header">
+        <h1>Evaluate Your Purchase</h1>
+        <p>Enter your financial details and items to analyze</p>
+    </div>
 
-        <form method="POST" action="/evaluate" class="eval-form">
-            <!-- Financial Info Card -->
-            <div class="eval-card">
-                <div class="eval-card-header">
-                    <i class="fa-solid fa-wallet"></i>
-                    <h3>Financial Information</h3>
+    <form method="POST" action="/evaluate" class="eval-form">
+        <div class="eval-card">
+            <div class="eval-card-header">
+                <i class="fa-solid fa-wallet"></i>
+                <h3>Financial Information</h3>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="monthly_income">Monthly Income (KSH)</label>
+                    <input type="number" id="monthly_income" name="monthly_income" placeholder="50,000" step="0.01" min="0" required>
                 </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="monthly_income">Monthly Income (KSH)</label>
-                        <input type="number" id="monthly_income" name="monthly_income" placeholder="50,000" step="0.01" min="0" required>
-                        <small>Your gross monthly income</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="fixed_expenses">Fixed Expenses (KSH)</label>
-                        <input type="number" id="fixed_expenses" name="fixed_expenses" placeholder="15,000" step="0.01" min="0" required>
-                        <small>Rent, utilities, insurance, etc.</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="savings_goal">Savings Goal (KSH)</label>
-                        <input type="number" id="savings_goal" name="savings_goal" placeholder="5,000" step="0.01" min="0" required>
-                        <small>Monthly savings target</small>
-                    </div>
+                <div class="form-group">
+                    <label for="fixed_expenses">Fixed Expenses (KSH)</label>
+                    <input type="number" id="fixed_expenses" name="fixed_expenses" placeholder="15,000" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="savings_goal">Savings Goal (KSH)</label>
+                    <input type="number" id="savings_goal" name="savings_goal" placeholder="5,000" step="0.01" min="0" required>
                 </div>
             </div>
+        </div>
 
-            <!-- Items Card -->
-            <div class="eval-card">
-                <div class="eval-card-header">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <h3>Purchase Items</h3>
-                </div>
-                <div id="items-container">
-                    <div class="item-entry" data-index="0">
-                        <div class="item-row">
-                            <div class="form-group flex-2">
-                                <label for="item_name_0">Item Name</label>
-                                <input type="text" id="item_name_0" name="items[0][name]" placeholder="e.g., Laptop" maxlength="200" required>
-                            </div>
-                            <div class="form-group flex-1">
-                                <label for="item_cost_0">Cost (KSH)</label>
-                                <input type="number" id="item_cost_0" name="items[0][cost]" placeholder="12,000" step="0.01" min="0" required>
-                            </div>
+        <div class="eval-card">
+            <div class="eval-card-header">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <h3>Purchase Items</h3>
+            </div>
+            <div id="items-container">
+                <div class="item-entry" data-index="0">
+                    <div class="item-row">
+                        <div class="form-group flex-2">
+                            <label for="item_name_0">Item Name</label>
+                            <input type="text" id="item_name_0" name="items[0][name]" placeholder="e.g., Laptop" maxlength="200" required>
+                        </div>
+                        <div class="form-group flex-1">
+                            <label for="item_cost_0">Cost (KSH)</label>
+                            <input type="number" id="item_cost_0" name="items[0][cost]" placeholder="12,000" step="0.01" min="0" required>
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-secondary btn-sm" id="addItemBtn"><i class="fa-solid fa-plus"></i> Add Another Item</button>
             </div>
-
-            <!-- Submit -->
-            <div class="eval-actions">
-                <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
-                    <span class="btn-text"><i class="fa-solid fa-magnifying-glass-chart"></i> Analyze Purchase</span>
-                    <span class="btn-loader" style="display:none;">Analyzing...</span>
-                </button>
-                <button type="reset" class="btn btn-secondary">Clear</button>
-            </div>
-        </form>
-    </div>
-
-    <!-- Right Sidebar -->
-    <aside class="eval-sidebar">
-        <div class="sidebar-card">
-            <h4><i class="fa-solid fa-circle-info"></i> How It Works</h4>
-            <ol class="sidebar-steps">
-                <li>Enter your monthly financial details</li>
-                <li>Add one or more items to evaluate</li>
-                <li>Get instant risk assessment</li>
-                <li>Review AI-powered insights</li>
-                <li>Explore alternative options</li>
-            </ol>
+            <button type="button" class="btn btn-secondary btn-sm" id="addItemBtn"><i class="fa-solid fa-plus"></i> Add Another Item</button>
         </div>
 
-        <div class="sidebar-card">
-            <h4><i class="fa-solid fa-chart-bar"></i> Risk Levels</h4>
-            <div class="risk-guide">
-                <div class="risk-guide-item"><span class="dot-low"></span> LOW — ≤30% of disposable</div>
-                <div class="risk-guide-item"><span class="dot-med"></span> MEDIUM — 30-60%</div>
-                <div class="risk-guide-item"><span class="dot-high"></span> HIGH — >60%</div>
-                <div class="risk-guide-item"><span class="dot-stop"></span> STOP — Cannot afford</div>
-            </div>
+        <div class="eval-actions">
+            <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                <span class="btn-text"><i class="fa-solid fa-magnifying-glass-chart"></i> Analyze Purchase</span>
+                <span class="btn-loader" style="display:none;">Analyzing...</span>
+            </button>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
         </div>
-
-        <div class="sidebar-card example">
-            <h4><i class="fa-solid fa-flask"></i> Example</h4>
-            <p><strong>Income:</strong> KSH 50,000</p>
-            <p><strong>Expenses:</strong> KSH 15,000</p>
-            <p><strong>Savings:</strong> KSH 5,000</p>
-            <p><strong>Disposable:</strong> KSH 30,000</p>
-            <p><strong>Purchase:</strong> KSH 12,000</p>
-            <p class="example-result"><i class="fa-solid fa-circle-check"></i> LOW RISK (40%)</p>
-        </div>
-    </aside>
+    </form>
 </div>
 
 <script>
