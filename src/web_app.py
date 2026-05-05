@@ -320,6 +320,46 @@ def evaluate():
         )
 
 
+@app.route("/insights")
+@login_required
+def insights():
+    """Display insights and spending education page"""
+    return render_template("insights.html")
+
+
+@app.route("/settings", methods=["GET", "POST"])
+@login_required
+def settings():
+    """User settings page"""
+    message = None
+    error = None
+
+    if request.method == "POST":
+        action = request.form.get("action")
+
+        if action == "change_password":
+            current = request.form.get("current_password", "")
+            new_pass = request.form.get("new_password", "")
+            confirm = request.form.get("confirm_password", "")
+
+            if not check_password_hash(users.get(session["user"], ""), current):
+                error = "Current password is incorrect"
+            elif not validate_password(new_pass):
+                error = "New password must be at least 6 characters"
+            elif new_pass != confirm:
+                error = "New passwords do not match"
+            else:
+                users[session["user"]] = generate_password_hash(new_pass)
+                message = "Password updated successfully"
+
+        elif action == "delete_account":
+            users.pop(session["user"], None)
+            session.pop("user", None)
+            return redirect(url_for("landing"))
+
+    return render_template("settings.html", message=message, error=error)
+
+
 @app.route("/health")
 def health():
     """Health check endpoint"""

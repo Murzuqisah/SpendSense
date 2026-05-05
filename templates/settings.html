@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}SpendSense - Settings{% endblock %}
+
+{% block content %}
+<div class="dash-layout">
+    <aside class="dash-sidebar">
+        <div class="sidebar-user">
+            <div class="user-avatar"><i class="fa-solid fa-user"></i></div>
+            <div>
+                <strong>{{ session.user }}</strong>
+                <span>Personal Account</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}" class="nav-item"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+            <a href="{{ url_for('index') }}" class="nav-item"><i class="fa-solid fa-plus-circle"></i> New Evaluation</a>
+            <a href="{{ url_for('insights') }}" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Insights</a>
+            <a href="{{ url_for('settings') }}" class="nav-item active"><i class="fa-solid fa-gear"></i> Settings</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="{{ url_for('logout') }}" class="nav-item logout"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
+        </div>
+    </aside>
+
+    <main class="dash-main">
+        <header class="dash-header">
+            <div>
+                <h1>Settings</h1>
+                <p>Manage your account</p>
+            </div>
+        </header>
+
+        {% if message %}
+        <div class="settings-alert success">
+            <i class="fa-solid fa-circle-check"></i> {{ message }}
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="settings-alert error">
+            <i class="fa-solid fa-circle-exclamation"></i> {{ error }}
+        </div>
+        {% endif %}
+
+        <div class="settings-grid">
+            <!-- Account Info -->
+            <div class="dash-card">
+                <div class="dash-card-header">
+                    <i class="fa-solid fa-user-circle"></i>
+                    <h3>Account Information</h3>
+                </div>
+                <div class="settings-field">
+                    <label>Username</label>
+                    <div class="settings-value">{{ session.user }}</div>
+                </div>
+                <div class="settings-field">
+                    <label>Account Type</label>
+                    <div class="settings-value">Personal</div>
+                </div>
+                <div class="settings-field">
+                    <label>AI Engine</label>
+                    <div class="settings-value">GPT-4o Mini</div>
+                </div>
+            </div>
+
+            <!-- Change Password -->
+            <div class="dash-card">
+                <div class="dash-card-header">
+                    <i class="fa-solid fa-key"></i>
+                    <h3>Change Password</h3>
+                </div>
+                <form method="POST" class="settings-form">
+                    <input type="hidden" name="action" value="change_password">
+                    <div class="form-group">
+                        <label for="current_password">Current Password</label>
+                        <input type="password" id="current_password" name="current_password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new_password">New Password</label>
+                        <input type="password" id="new_password" name="new_password" minlength="6" required>
+                        <small>Minimum 6 characters</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm New Password</label>
+                        <input type="password" id="confirm_password" name="confirm_password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Password</button>
+                </form>
+            </div>
+
+            <!-- Privacy -->
+            <div class="dash-card">
+                <div class="dash-card-header">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>Privacy & Data</h3>
+                </div>
+                <div class="insight-list">
+                    <div class="insight-item">
+                        <div class="insight-icon"><i class="fa-solid fa-database"></i></div>
+                        <div>
+                            <strong>No Data Stored</strong>
+                            <p>Financial data is processed in-memory only. Nothing is saved to disk.</p>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon"><i class="fa-solid fa-eye-slash"></i></div>
+                        <div>
+                            <strong>No Tracking</strong>
+                            <p>No analytics, cookies, or third-party tracking on this platform.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Danger Zone -->
+            <div class="dash-card danger-card">
+                <div class="dash-card-header">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <h3>Danger Zone</h3>
+                </div>
+                <p style="font-size: 0.82rem; color: var(--dusty-denim); margin-bottom: 1rem;">
+                    Permanently delete your account. This action cannot be undone.
+                </p>
+                <form method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.')">
+                    <input type="hidden" name="action" value="delete_account">
+                    <button type="submit" class="btn btn-danger">Delete Account</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

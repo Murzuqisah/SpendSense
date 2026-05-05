@@ -15,9 +15,9 @@
         </div>
         <nav class="sidebar-nav">
             <a href="{{ url_for('dashboard') }}" class="nav-item active"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
-            <a href="/" class="nav-item"><i class="fa-solid fa-plus-circle"></i> New Evaluation</a>
-            <a href="#" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Insights</a>
-            <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            <a href="{{ url_for('index') }}" class="nav-item"><i class="fa-solid fa-plus-circle"></i> New Evaluation</a>
+            <a href="{{ url_for('insights') }}" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Insights</a>
+            <a href="{{ url_for('settings') }}" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
         </nav>
         <div class="sidebar-footer">
             <a href="{{ url_for('logout') }}" class="nav-item logout"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>

@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}SpendSense - Insights{% endblock %}
+
+{% block content %}
+<div class="dash-layout">
+    <aside class="dash-sidebar">
+        <div class="sidebar-user">
+            <div class="user-avatar"><i class="fa-solid fa-user"></i></div>
+            <div>
+                <strong>{{ session.user }}</strong>
+                <span>Personal Account</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}" class="nav-item"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+            <a href="{{ url_for('index') }}" class="nav-item"><i class="fa-solid fa-plus-circle"></i> New Evaluation</a>
+            <a href="{{ url_for('insights') }}" class="nav-item active"><i class="fa-solid fa-chart-pie"></i> Insights</a>
+            <a href="{{ url_for('settings') }}" class="nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="{{ url_for('logout') }}" class="nav-item logout"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
+        </div>
+    </aside>
+
+    <main class="dash-main">
+        <header class="dash-header">
+            <div>
+                <h1>Insights</h1>
+                <p>Understand your spending decisions better</p>
+            </div>
+        </header>
+
+        <!-- Risk Framework -->
+        <div class="dash-grid">
+            <div class="dash-card" style="grid-column: span 2;">
+                <div class="dash-card-header">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>Risk Assessment Framework</h3>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--dusty-denim); margin-bottom: 1.5rem;">
+                    SpendSense evaluates every purchase against your disposable income using these thresholds:
+                </p>
+                <div class="risk-framework-grid">
+                    <div class="risk-card low">
+                        <div class="risk-card-header">
+                            <span class="risk-dot low"></span>
+                            <strong>LOW RISK</strong>
+                        </div>
+                        <div class="risk-card-threshold">&le; 30%</div>
+                        <p>Purchase uses a small portion of disposable income. Generally safe to proceed.</p>
+                    </div>
+                    <div class="risk-card medium">
+                        <div class="risk-card-header">
+                            <span class="risk-dot medium"></span>
+                            <strong>MEDIUM RISK</strong>
+                        </div>
+                        <div class="risk-card-threshold">30 - 60%</div>
+                        <p>Significant portion of disposable income. Consider alternatives or timing.</p>
+                    </div>
+                    <div class="risk-card high">
+                        <div class="risk-card-header">
+                            <span class="risk-dot high"></span>
+                            <strong>HIGH RISK</strong>
+                        </div>
+                        <div class="risk-card-threshold">&gt; 60%</div>
+                        <p>Majority of disposable income. Evaluate carefully and explore options.</p>
+                    </div>
+                    <div class="risk-card stop">
+                        <div class="risk-card-header">
+                            <span class="risk-dot stop"></span>
+                            <strong>HARD STOP</strong>
+                        </div>
+                        <div class="risk-card-threshold">N/A</div>
+                        <p>Expenses exceed income or purchase exceeds disposable. Cannot recommend.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budgeting Strategies -->
+            <div class="dash-card">
+                <div class="dash-card-header">
+                    <i class="fa-solid fa-piggy-bank"></i>
+                    <h3>Budgeting Strategies</h3>
+                </div>
+                <div class="insight-list">
+                    <div class="insight-item">
+                        <div class="insight-icon"><i class="fa-solid fa-percent"></i></div>
+                        <div>
+                            <strong>50/30/20 Rule</strong>
+                            <p>50% needs, 30% wants, 20% savings. A simple framework for balanced spending.</p>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div>
+                            <strong>24-Hour Rule</strong>
+                            <p>Wait 24 hours before any non-essential purchase over 5% of your income.</p>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon"><i class="fa-solid fa-layer-group"></i></div>
+                        <div>
+                            <strong>Zero-Based Budgeting</strong>
+                            <p>Assign every shilling a job. Income minus all allocations should equal zero.</p>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon"><i class="fa-solid fa-vault"></i></div>
+                        <div>
+                            <strong>Emergency Fund First</strong>
+                            <p>Build 3-6 months of expenses before discretionary spending.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How Confidence Works -->
+            <div class="dash-card">
+                <div class="dash-card-header">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <h3>How Confidence Scoring Works</h3>
+                </div>
+                <div class="insight-list">
+                    <div class="insight-item">
+                        <div class="insight-icon"><i class="fa-solid fa-calculator"></i></div>
+                        <div>
+                            <strong>Disposable Ratio</strong>
+                            <p>Primary factor: what percentage of your disposable income the purchase represents.</p>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                        <div>
+                            <strong>Savings Buffer</strong>
+                            <p>Higher confidence when savings goals are preserved after the purchase.</p>
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon"><i class="fa-solid fa-robot"></i></div>
+                        <div>
+                            <strong>AI Enhancement</strong>
+                            <p>GPT-4o provides contextual analysis, alternatives, and personalized reasoning.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
